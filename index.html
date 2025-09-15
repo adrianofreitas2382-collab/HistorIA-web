@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e0f13">
+  <title>HistorIA (Web)</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <style>
+  :root{--bg:#0e0f13;--card:#181b26;--ink:#e9ecf1;--muted:#aab1bd;--primary:#7a5cff;--primary2:#79e2ff;--hl:#ffd95a}
+  *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:#0e0f13;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+  header{padding:10px 14px;border-bottom:1px solid #242635;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);position:sticky;top:0;z-index:5;display:flex;gap:8px;align-items:center;justify-content:space-between}
+  header h1{margin:0;font-size:15px;letter-spacing:.3px;display:flex;gap:8px;align-items:center}
+  .ver-badge{padding:2px 8px;border:1px solid #2a2f44;border-radius:999px;background:#1b1f2f;color:#aab1bd;font-size:12px}
+  header .right{display:flex;gap:8px;align-items:center}
+  .btn{border:1px solid #2a2f44;border-radius:12px;background:#1b2133;color:#e9ecf1;padding:10px 12px;cursor:pointer;touch-action:manipulation}
+  .btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#081018;border:none}
+  main{max-width:900px;margin:12px auto;padding:0 10px 88px}
+  .card{background:var(--card);border:1px solid #242635;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .center{padding:14px}.hidden{display:none!important}.hrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+  .menu{display:grid;gap:10px;margin-top:10px}
+  .item{padding:12px;border:1px solid #2a2f44;border-radius:14px;background:#151a25}
+  .item .title{font-weight:700}.row-actions{display:flex;gap:8px;margin-top:8px}
+  .grid{display:grid;gap:10px}.grid.cols-2{grid-template-columns:1fr 1fr}
+  @media(max-width:760px){.grid.cols-2{grid-template-columns:1fr}}
+  label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:#111522;color:#e9ecf1;border:1px solid #2a2f44;border-radius:10px;padding:10px}
+  textarea{min-height:80px;resize:vertical}.mini{color:#aab1bd;font-size:12px}.code{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0b1020;padding:6px 8px;border-radius:6px;border:1px solid #27304a;color:#d7e0ff}
+  .stage{padding:12px 14px 8px}.stage h2{margin:0 0 6px;font-size:18px}.stage .cap{font-weight:600;color:#b6c1d1}
+  .story{padding:0 14px 10px;color:#d7dceb;line-height:1.64;min-height:180px}
+  .story .sent{padding:2px 4px;border-radius:4px}
+  .story .sent.speaking{background:color-mix(in srgb, var(--hl) 22%, transparent);outline:1px dashed var(--hl)}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 14px 12px}
+  @media(max-width:560px){.choices{grid-template-columns:1fr}}
+  .choices button{border:none;border-radius:12px;padding:14px;background:#23273a;color:#e9ecf1;font-weight:600;cursor:pointer}
+  .nav{display:flex;gap:10px;padding:10px 14px 14px;border-top:1px solid #242635;flex-wrap:wrap}
+  .nav button{flex:1;border:none;border-radius:12px;padding:12px 14px;background:#2a2f44;color:#dfe6ef;font-weight:700;cursor:pointer}
+  .nav .primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#081018}
+  .audioBar{display:flex;gap:8px;align-items:center;padding:8px 14px 12px;border-top:1px dashed #2a2f44;flex-wrap:wrap}
+  .audioBar .group{display:flex;gap:6px;align-items:center;background:#1a2133;border:1px solid #2a2f44;border-radius:10px;padding:6px 8px}
+  .audioBar button{border:none;border-radius:8px;padding:8px 10px;background:#1f2333;color:#e9ecf1;cursor:pointer}
+  .audioBar select{background:#12192a;color:#e9ecf1;border:1px solid #2a2f44;border-radius:8px;padding:6px 8px}
+  .log{margin-top:14px;padding:10px 14px;border-top:1px dashed #2a2f44;color:#bfc7d6;font-size:13px}.badge{padding:3px 8px;border-radius:999px;background:#23273a;border:1px solid #2a2f44;margin-right:6px}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:20}
+  .modal.on{display:flex}.panel{background:#181b26;border:1px solid #2a2f44;border-radius:14px;max-width:820px;width:92%;padding:16px}.panel h3{margin:4px 0 10px}
+  .row{display:flex;gap:10px;align-items:center;margin:8px 0}.row label{min-width:200px;color:#c5ccdb}.row input[type=range]{flex:1}
+  </style>
+</head>
+<body>
+<header>
+  <h1>🧠 HistorIA <span class="ver-badge" id="appVer">v1.7.5-web</span></h1>
+  <div class="right">
+    <button id="btnSettings" class="btn">⚙️</button>
+    <button id="btnHome" class="btn hidden">🏠</button>
+  </div>
+</header>
+<main>
+<section id="screenMenu" class="card center">
+  <div class="hrow"><h2>Seus roteiros</h2><button id="btnCreate" class="btn primary">➕ Criar novo roteiro</button></div>
+  <div id="listStories" class="menu"></div>
+  <div class="mini" style="margin-top:8px">IA: <span class="code">Hugging Face Inference API</span> (grátis) com fallback offline • PWA mobile-first.</div>
+</section>
+<section id="screenCreator" class="card hidden">
+  <div class="center">
+    <h2 id="creatorTitle">Novo roteiro</h2>
+    <div class="grid cols-2">
+      <div><label for="f_title">Título</label><input id="f_title" placeholder="Ex.: Marés de Agosto"></div>
+      <div><label for="f_genre">Gênero</label>
+        <select id="f_genre">
+          <option value="drama">Drama</option><option value="misterio">Mistério/Investigação</option>
+          <option value="suspense">Suspense/Thriller</option><option value="romance">Romance</option>
+          <option value="fantasia">Fantasia urbana</option><option value="ficcao">Ficção científica leve</option>
+          <option value="comedia">Comédia dramática</option><option value="politico">Político-local</option>
+        </select></div>
+    </div>
+    <div class="grid cols-2" style="margin-top:8px">
+      <div><label for="f_nucleos">Qtd. de núcleos (máx. 6)</label><input id="f_nucleos" type="number" min="1" max="6" value="6"></div>
+      <div><label for="f_capitulos">Capítulos (máx. 10)</label><input id="f_capitulos" type="number" min="3" max="10" value="10"></div>
+    </div>
+    <div style="margin-top:8px"><label for="f_brief">Enredo breve (hipótese inicial)</label>
+      <textarea id="f_brief" placeholder="Descreva em 2–3 frases o núcleo da história (sem precisar 50% de volume)."></textarea></div>
+    <div style="margin-top:8px"><label for="f_nuclei">Núcleos (separados por vírgulas)</label>
+      <input id="f_nuclei" placeholder="Ex.: Portugal, Brasil (antes do descobrimento), travessia no oceano, família real, romance com nativa, traição na corte"></div>
+    <div class="mini" id="genHint" style="margin-top:6px"></div>
+    <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+      <button id="btnCancel" class="btn">Cancelar</button>
+      <button id="btnGenerate" class="btn primary">⚙️ Gerar roteiro com IA</button>
+    </div>
+    <div id="genStatus" class="mini" style="margin-top:8px"></div>
+  </div>
+</section>
+<section id="screenReader" class="card hidden">
+  <div class="stage"><div class="cap" id="capitulo">Capítulo 1</div><h2 id="titulo">Título</h2></div>
+  <div class="story" id="narrativa"></div>
+  <div class="choices"><button class="choice" id="btnA"></button><button class="choice" id="btnB"></button></div>
+  <div class="audioBar">
+    <div class="group"><label class="mini">Voz</label><select id="selVoice"><option value="auto">Automática</option><option value="masc">Masculina</option><option value="fem">Feminina</option></select></div>
+    <div class="group"><span class="mini">Velocidade</span><button id="rateDown">−</button><span id="rateVal" class="mini">1.0x</span><button id="rateUp">+</button></div>
+    <div class="group"><span class="mini">Volume</span><button id="volDown">−</button><span id="volVal" class="mini">90%</span><button id="volUp">+</button><button id="muteBtn">🔇</button></div>
+    <button id="btnSpeak">🔈 Narrar</button><button id="btnStop">⏹️ Parar</button><span class="mini" id="speechStatus">Pronto</span>
+  </div>
+  <div class="nav"><button id="btnBack">⟵ Voltar</button><button id="btnNext" class="primary">Avançar ⟶</button></div>
+</section>
+<div class="log" id="log"><span class="badge">Resumo</span> Seu caminho aparecerá aqui.</div>
+</main>
+<div class="modal" id="settings">
+  <div class="panel">
+    <h3>⚙️ Configurações</h3>
+    <div class="row"><label>Provedor de IA</label><select id="p_provider"><option value="local">Heurístico local (offline)</option><option value="hf">Hugging Face Inference API (grátis)</option></select></div>
+    <div class="row" id="row_hf_token"><label>HF API Token</label><input id="p_hfToken" placeholder="hf_xxx"></div>
+    <div class="row" id="row_hf_model"><label>Modelo HF</label><input id="p_hfModel" value="mistralai/Mixtral-8x7B-Instruct-v0.1"></div>
+    <div class="row"><label>Voz (padrão)</label><select id="p_gender"><option value="auto">Automática</option><option value="masc">Masculina</option><option value="fem">Feminina</option></select></div>
+    <div class="row"><label>Velocidade padrão</label><input type="range" id="p_rate" min="0.6" max="1.6" step="0.02" value="1.02"></div>
+    <div class="row"><label>Volume padrão</label><input type="range" id="p_vol" min="0" max="1" step="0.02" value="0.9"></div>
+    <div class="row"><label>Palavras-alvo por capítulo (~15min)</label><input type="number" id="p_words" min="600" max="2500" step="50" value="1800"></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px"><button id="s_cancel" class="btn">Fechar</button><button id="s_ok" class="btn primary">Salvar</button></div>
+    <div class="mini" style="margin-top:6px">Token e preferências ficam salvos localmente (neste navegador).</div>
+  </div>
+</div>
+<script src="webapp.js"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js');});}</script>
+</body>
+</html>

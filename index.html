@@ -1,1 +1,125 @@
-<!doctype html><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>HistorIA Web</title><link rel='manifest' href='manifest.webmanifest'><link rel='icon' href='assets/icon-192.png'><body style='margin:0;background:#0e0f13;color:#e9ecf1;font-family:system-ui;-apple-system,Segoe UI,Roboto'><header style='padding:10px 14px;border-bottom:1px solid #242635;background:rgba(0,0,0,.35);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0'><h1>🧠 HistorIA <span style='padding:2px 8px;border:1px solid #2a2f44;border-radius:999px;background:#1b1f2f;color:#aab1bd;font-size:12px'>v1.7.6-web</span></h1><div><button id='btnSettings'>⚙️</button> <button id='btnHome' style='display:none'>🏠</button></div></header><main style='max-width:900px;margin:12px auto;padding:0 10px 80px'><section id='screenMenu' style='background:#181b26;border:1px solid #242635;border-radius:16px;padding:14px'><div style='display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap'><h2>Seus roteiros</h2><button id='btnCreate'>➕ Criar novo roteiro</button></div><div id='listStories' style='display:grid;gap:10px;margin-top:10px'></div><div style='color:#aab1bd;font-size:12px;margin-top:8px'>IA: Hugging Face (grátis) com fallback offline • PWA.</div></section><section id='screenCreator' style='display:none;background:#181b26;border:1px solid #242635;border-radius:16px;padding:14px;margin-top:12px'><h2>Novo roteiro</h2><div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'><div><label>Título</label><input id='f_title' style='width:100%'></div><div><label>Gênero</label><select id='f_genre' style='width:100%'><option value='misterio'>Mistério/Investigação</option><option value='suspense'>Suspense/Thriller</option><option value='drama'>Drama</option><option value='romance'>Romance</option></select></div></div><div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px'><div><label>Núcleos (máx. 6)</label><input id='f_nucleos' type='number' min='1' max='6' value='6' style='width:100%'></div><div><label>Capítulos (máx. 10)</label><input id='f_capitulos' type='number' min='3' max='10' value='10' style='width:100%'></div></div><div style='margin-top:8px'><label>Enredo breve</label><textarea id='f_brief' style='width:100%;min-height:80px'></textarea></div><div style='margin-top:8px'><label>Núcleos (vírgulas)</label><input id='f_nuclei' style='width:100%'></div><div style='display:flex;gap:10px;justify-content:flex-end;margin-top:12px'><button id='btnCancel'>Cancelar</button><button id='btnGenerate'>⚙️ Gerar roteiro com IA</button></div><div id='genStatus' style='color:#aab1bd;font-size:12px;margin-top:8px'></div></section><section id='screenReader' style='display:none;background:#181b26;border:1px solid #242635;border-radius:16px;margin-top:12px'><div style='padding:14px'><div id='capitulo' style='color:#b6c1d1;font-size:12px'>Capítulo 1</div><h2 id='titulo'>Título</h2></div><div id='narrativa' style='padding:0 14px 10px;line-height:1.64;min-height:180px'></div><div style='display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 14px'><button id='btnA' style='display:none'></button><button id='btnB' style='display:none'></button></div><div style='display:flex;gap:8px;align-items:center;padding:8px 14px 12px;border-top:1px dashed #2a2f44;flex-wrap:wrap'><span style='color:#aab1bd;font-size:12px'>Voz</span><select id='selVoice'><option value='auto'>Automática</option><option value='masc'>Masculina</option><option value='fem'>Feminina</option></select><span style='color:#aab1bd;font-size:12px;margin-left:8px'>Vel</span><button id='rateDown'>−</button><span id='rateVal' style='color:#aab1bd;font-size:12px'>1.0x</span><button id='rateUp'>+</button><span style='color:#aab1bd;font-size:12px;margin-left:8px'>Vol</span><button id='volDown'>−</button><span id='volVal' style='color:#aab1bd;font-size:12px'>90%</span><button id='volUp'>+</button><button id='muteBtn'>🔇</button><button id='btnSpeak'>🔈 Narrar</button><button id='btnStop'>⏹️ Parar</button><span id='speechStatus' style='color:#aab1bd;font-size:12px'>Pronto</span></div><div style='display:flex;gap:10px;padding:10px 14px 14px;border-top:1px solid #242635;flex-wrap:wrap'><button id='btnBack' style='flex:1'>⟵ Voltar</button><button id='btnNext' style='flex:1'>Avançar ⟶</button></div></section><div id='settings' style='position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:20'><div style='background:#181b26;border:1px solid #2a2f44;border-radius:14px;max-width:820px;width:92%;padding:16px'><h3>⚙️ Configurações</h3><div style='display:flex;gap:10px;align-items:center;margin:8px 0'><label style='min-width:180px'>HF Token</label><input id='hfToken' style='flex:1'></div><div style='display:flex;gap:10px;align-items:center;margin:8px 0'><label style='min-width:180px'>Modelo</label><input id='hfModel' value='mistralai/Mixtral-8x7B-Instruct-v0.1' style='flex:1'></div><div style='display:flex;gap:10px;justify-content:flex-end'><button id='s_cancel'>Fechar</button><button id='s_ok'>Salvar</button></div></div></div></main><script src='webapp.js'></script><script>if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));}</script>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>HistorIA (Web)</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png">
+<meta name="theme-color" content="#0e0f13">
+<style>
+:root{--bg:#0e0f13;--card:#181b26;--ink:#e9ecf1;--muted:#aab1bd;--primary:#7a5cff;--primary2:#79e2ff;--hl:#ffd95a}
+*{box-sizing:border-box} body{margin:0;background:#0e0f13;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto}
+header{padding:10px 14px;border-bottom:1px solid #242635;background:rgba(0,0,0,.35);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.ver{padding:2px 8px;border:1px solid #2a2f44;border-radius:999px;background:#1b1f2f;color:#aab1bd;font-size:12px}
+.btn{border:1px solid #2a2f44;border-radius:12px;background:#1b2133;color:#e9ecf1;padding:10px 12px;cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#081018;border:none}
+main{max-width:900px;margin:12px auto;padding:0 10px 80px}
+.card{background:#181b26;border:1px solid #242635;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.center{padding:14px}.hidden{display:none!important}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.menu{display:grid;gap:10px;margin-top:10px}
+.item{padding:12px;border:1px solid #2a2f44;border-radius:14px;background:#151a25}
+.item .title{font-weight:700}.row-actions{display:flex;gap:8px;margin-top:8px}
+.grid{display:grid;gap:10px}.cols-2{grid-template-columns:1fr 1fr}@media(max-width:760px){.cols-2{grid-template-columns:1fr}}
+label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:#111522;color:#e9ecf1;border:1px solid #2a2f44;border-radius:10px;padding:10px}
+.story{padding:0 14px 10px;line-height:1.64;min-height:180px}
+.story .sent{padding:2px 4px;border-radius:4px}.speaking{background:rgba(255,217,90,.25);outline:1px dashed var(--hl)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 14px}@media(max-width:560px){.choices{grid-template-columns:1fr}}
+.choices button{border:none;border-radius:12px;padding:14px;background:#23273a;color:#e9ecf1;font-weight:600}
+.nav{display:flex;gap:10px;padding:10px 14px;border-top:1px solid #242635;flex-wrap:wrap}
+.nav button{flex:1;border:none;border-radius:12px;padding:12px 14px;background:#2a2f44;color:#dfe6ef;font-weight:700}
+.nav .primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#081018}
+.audio{display:flex;gap:8px;align-items:center;padding:8px 14px 12px;border-top:1px dashed #2a2f44;flex-wrap:wrap}
+.group{display:flex;gap:6px;align-items:center;background:#1a2133;border:1px solid #2a2f44;border-radius:10px;padding:6px 8px}
+.mini{color:#aab1bd;font-size:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:20}
+.modal.on{display:flex}.panel{background:#181b26;border:1px solid #2a2f44;border-radius:14px;max-width:820px;width:92%;padding:16px}
+.stage{padding:12px 14px 8px}.stage h2{margin:0 0 6px;font-size:18px}.stage .cap{font-weight:600;color:#b6c1d1}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 HistorIA <span class="ver">v1.8.1-gemini</span></h1>
+  <div>
+    <button id="btnSettings" class="btn">⚙️</button>
+    <button id="btnHome" class="btn hidden">🏠</button>
+  </div>
+</header>
+<main>
+<section id="screenMenu" class="card center">
+  <div class="hrow"><h2>Seus roteiros</h2><button id="btnCreate" class="btn primary">➕ Criar novo roteiro</button></div>
+  <div id="listStories" class="menu"></div>
+  <div class="mini" style="margin-top:8px">IA: Google AI Studio (Gemini) / Hugging Face • PWA.</div>
+</section>
+
+<section id="screenCreator" class="card hidden">
+  <div class="center">
+    <h2>Novo roteiro</h2>
+    <div class="grid cols-2">
+      <div><label>Título</label><input id="f_title" placeholder="Ex.: Marés de Agosto"></div>
+      <div><label>Gênero</label><select id="f_genre">
+        <option value="drama">Drama</option><option value="misterio">Mistério/Investigação</option>
+        <option value="suspense">Suspense/Thriller</option><option value="romance">Romance</option>
+      </select></div>
+    </div>
+    <div class="grid cols-2" style="margin-top:8px">
+      <div><label>Núcleos (máx. 6)</label><input id="f_nucleos" type="number" min="1" max="6" value="6"></div>
+      <div><label>Capítulos (máx. 10)</label><input id="f_capitulos" type="number" min="3" max="10" value="10"></div>
+    </div>
+    <div style="margin-top:8px"><label>Enredo breve</label><textarea id="f_brief" placeholder="2–3 frases com a hipótese inicial."></textarea></div>
+    <div style="margin-top:8px"><label>Núcleos (vírgulas)</label><input id="f_nuclei" placeholder="Portugal, Brasil antes do descobrimento, travessia, família real, romance com nativa, traição na corte"></div>
+    <div class="mini" id="genHint" style="margin-top:6px">Capítulos longos (~15 min), decisões em 50% e 90%, conclusão clara.</div>
+    <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
+      <button id="btnCancel" class="btn">Cancelar</button>
+      <button id="btnGenerate" class="btn primary">⚙️ Gerar roteiro com IA</button>
+    </div>
+    <div id="genStatus" class="mini" style="margin-top:8px"></div>
+  </div>
+</section>
+
+<section id="screenReader" class="card hidden">
+  <div class="stage"><div class="cap" id="capitulo">Capítulo 1</div><h2 id="titulo">Título</h2></div>
+  <div id="narrativa" class="story"></div>
+  <div class="choices"><button id="btnA" class="hidden"></button><button id="btnB" class="hidden"></button></div>
+  <div class="audio">
+    <div class="group"><span class="mini">Voz</span><select id="selVoice"><option value="auto">Automática</option><option value="masc">Masculina</option><option value="fem">Feminina</option></select></div>
+    <div class="group"><span class="mini">Vel</span><button id="rateDown">−</button><span id="rateVal" class="mini">1.0x</span><button id="rateUp">+</button></div>
+    <div class="group"><span class="mini">Vol</span><button id="volDown">−</button><span id="volVal" class="mini">90%</span><button id="volUp">+</button><button id="muteBtn">🔇</button></div>
+    <button id="btnSpeak">🔈 Narrar</button><button id="btnStop">⏹️ Parar</button><span id="speechStatus" class="mini">Pronto</span>
+  </div>
+  <div class="nav"><button id="btnBack">⟵ Voltar</button><button id="btnNext" class="primary">Avançar ⟶</button></div>
+</section>
+
+<div id="settings" class="modal">
+  <div class="panel">
+    <h3>⚙️ Configurações</h3>
+    <div class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
+      <label style="min-width:180px">Provedor de IA</label>
+      <select id="provSel" style="flex:1">
+        <option value="gemini">Google AI Studio (Gemini)</option>
+        <option value="hf">Hugging Face</option>
+      </select>
+    </div>
+    <div id="row_gemini" class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
+      <label style="min-width:180px">Gemini API Key</label><input id="geminiKey" placeholder="AIza..." style="flex:1">
+    </div>
+    <div id="row_gemini_model" class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
+      <label style="min-width:180px">Gemini Modelo</label><input id="geminiModel" value="gemini-1.5-pro" style="flex:1">
+    </div>
+    <div id="row_hf" class="row" style="display:none;gap:10px;align-items:center;margin:8px 0">
+      <label style="min-width:180px">HF Token</label><input id="hfToken" placeholder="hf_xxx" style="flex:1">
+    </div>
+    <div id="row_hf_model" class="row" style="display:none;gap:10px;align-items:center;margin:8px 0">
+      <label style="min-width:180px">HF Modelo</label><input id="hfModel" value="mistralai/Mixtral-8x7B-Instruct-v0.1" style="flex:1">
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end"><button id="s_cancel" class="btn">Fechar</button><button id="s_ok" class="btn primary">Salvar</button></div>
+    <div class="mini" style="margin-top:6px">Chaves salvas localmente.</div>
+  </div>
+</div>
+
+</main>
+<script src="webapp.js"></script>
+<script>if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));}</script>
+</body>
+</html>

@@ -36,11 +36,12 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:20}
 .modal.on{display:flex}.panel{background:#181b26;border:1px solid #2a2f44;border-radius:14px;max-width:820px;width:92%;padding:16px}
 .stage{padding:12px 14px 8px}.stage h2{margin:0 0 6px;font-size:18px}.stage .cap{font-weight:600;color:#b6c1d1}
+.log{margin-top:14px;padding:10px 14px;border-top:1px dashed #2a2f44;color:#bfc7d6;font-size:13px} .badge{padding:3px 8px;border-radius:999px;background:#23273a;border:1px solid #2a2f44;margin-right:6px}
 </style>
 </head>
 <body>
 <header>
-  <h1>🧠 HistorIA <span class="ver">v1.8.1-gemini</span></h1>
+  <h1>🧠 HistorIA <span class="ver">v1.8.3-gemini</span></h1>
   <div>
     <button id="btnSettings" class="btn">⚙️</button>
     <button id="btnHome" class="btn hidden">🏠</button>
@@ -61,15 +62,16 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
       <div><label>Gênero</label><select id="f_genre">
         <option value="drama">Drama</option><option value="misterio">Mistério/Investigação</option>
         <option value="suspense">Suspense/Thriller</option><option value="romance">Romance</option>
+        <option value="fantasia">Fantasia urbana</option><option value="ficcao">Ficção científica leve</option>
       </select></div>
     </div>
     <div class="grid cols-2" style="margin-top:8px">
       <div><label>Núcleos (máx. 6)</label><input id="f_nucleos" type="number" min="1" max="6" value="6"></div>
       <div><label>Capítulos (máx. 10)</label><input id="f_capitulos" type="number" min="3" max="10" value="10"></div>
     </div>
-    <div style="margin-top:8px"><label>Enredo breve</label><textarea id="f_brief" placeholder="2–3 frases com a hipótese inicial."></textarea></div>
+    <div style="margin-top:8px"><label>Enredo breve</label><textarea id="f_brief" placeholder="Palavras‑chave/hipótese inicial."></textarea></div>
     <div style="margin-top:8px"><label>Núcleos (vírgulas)</label><input id="f_nuclei" placeholder="Portugal, Brasil antes do descobrimento, travessia, família real, romance com nativa, traição na corte"></div>
-    <div class="mini" id="genHint" style="margin-top:6px">Capítulos longos (~15 min), decisões em 50% e 90%, conclusão clara.</div>
+    <div class="mini" id="genHint" style="margin-top:6px">Meta: ~15 min por capítulo (50% e 90% com decisões).</div>
     <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
       <button id="btnCancel" class="btn">Cancelar</button>
       <button id="btnGenerate" class="btn primary">⚙️ Gerar roteiro com IA</button>
@@ -91,9 +93,13 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
   <div class="nav"><button id="btnBack">⟵ Voltar</button><button id="btnNext" class="primary">Avançar ⟶</button></div>
 </section>
 
+<div class="log" id="log"><span class="badge">Resumo</span> Seu caminho aparecerá aqui.</div>
+</main>
+
 <div id="settings" class="modal">
   <div class="panel">
     <h3>⚙️ Configurações</h3>
+
     <div class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
       <label style="min-width:180px">Provedor de IA</label>
       <select id="provSel" style="flex:1">
@@ -101,24 +107,26 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
         <option value="hf">Hugging Face</option>
       </select>
     </div>
+
     <div id="row_gemini" class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
       <label style="min-width:180px">Gemini API Key</label><input id="geminiKey" placeholder="AIza..." style="flex:1">
     </div>
     <div id="row_gemini_model" class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
       <label style="min-width:180px">Gemini Modelo</label><input id="geminiModel" value="gemini-1.5-pro" style="flex:1">
     </div>
+
     <div id="row_hf" class="row" style="display:none;gap:10px;align-items:center;margin:8px 0">
       <label style="min-width:180px">HF Token</label><input id="hfToken" placeholder="hf_xxx" style="flex:1">
     </div>
     <div id="row_hf_model" class="row" style="display:none;gap:10px;align-items:center;margin:8px 0">
       <label style="min-width:180px">HF Modelo</label><input id="hfModel" value="mistralai/Mixtral-8x7B-Instruct-v0.1" style="flex:1">
     </div>
+
     <div style="display:flex;gap:10px;justify-content:flex-end"><button id="s_cancel" class="btn">Fechar</button><button id="s_ok" class="btn primary">Salvar</button></div>
     <div class="mini" style="margin-top:6px">Chaves salvas localmente.</div>
   </div>
 </div>
 
-</main>
 <script src="webapp.js"></script>
 <script>if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));}</script>
 </body>

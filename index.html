@@ -41,17 +41,14 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
 </head>
 <body>
 <header>
-  <h1>🧠 HistorIA <span class="ver">v1.8.3-gemini</span></h1>
-  <div>
-    <button id="btnSettings" class="btn">⚙️</button>
-    <button id="btnHome" class="btn hidden">🏠</button>
-  </div>
+  <h1>🧠 HistorIA <span class="ver">v1.9.1-gemini</span></h1>
+  <div><button id="btnSettings" class="btn">🔐 Licença</button><button id="btnHome" class="btn hidden">🏠</button></div>
 </header>
 <main>
 <section id="screenMenu" class="card center">
   <div class="hrow"><h2>Seus roteiros</h2><button id="btnCreate" class="btn primary">➕ Criar novo roteiro</button></div>
   <div id="listStories" class="menu"></div>
-  <div class="mini" style="margin-top:8px">IA: Google AI Studio (Gemini) / Hugging Face • PWA.</div>
+  <div class="mini" style="margin-top:8px">Geração por capítulo • Próximo em segundo plano • Retoma do ponto onde parou.</div>
 </section>
 
 <section id="screenCreator" class="card hidden">
@@ -59,11 +56,7 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
     <h2>Novo roteiro</h2>
     <div class="grid cols-2">
       <div><label>Título</label><input id="f_title" placeholder="Ex.: Marés de Agosto"></div>
-      <div><label>Gênero</label><select id="f_genre">
-        <option value="drama">Drama</option><option value="misterio">Mistério/Investigação</option>
-        <option value="suspense">Suspense/Thriller</option><option value="romance">Romance</option>
-        <option value="fantasia">Fantasia urbana</option><option value="ficcao">Ficção científica leve</option>
-      </select></div>
+      <div><label>Gênero</label><select id="f_genre"><option value="drama">Drama</option><option value="misterio">Mistério/Investigação</option><option value="suspense">Suspense/Thriller</option><option value="romance">Romance</option></select></div>
     </div>
     <div class="grid cols-2" style="margin-top:8px">
       <div><label>Núcleos (máx. 6)</label><input id="f_nucleos" type="number" min="1" max="6" value="6"></div>
@@ -71,10 +64,9 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
     </div>
     <div style="margin-top:8px"><label>Enredo breve</label><textarea id="f_brief" placeholder="Palavras‑chave/hipótese inicial."></textarea></div>
     <div style="margin-top:8px"><label>Núcleos (vírgulas)</label><input id="f_nuclei" placeholder="Portugal, Brasil antes do descobrimento, travessia, família real, romance com nativa, traição na corte"></div>
-    <div class="mini" id="genHint" style="margin-top:6px">Meta: ~15 min por capítulo (50% e 90% com decisões).</div>
+    <div class="mini" id="genHint" style="margin-top:6px">Meta: ~15 min por capítulo (decisões em 50% e 90%).</div>
     <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
-      <button id="btnCancel" class="btn">Cancelar</button>
-      <button id="btnGenerate" class="btn primary">⚙️ Gerar roteiro com IA</button>
+      <button id="btnCancel" class="btn">Cancelar</button><button id="btnGenerate" class="btn primary">⚙️ Gerar primeiro capítulo</button>
     </div>
     <div id="genStatus" class="mini" style="margin-top:8px"></div>
   </div>
@@ -96,34 +88,15 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
 <div class="log" id="log"><span class="badge">Resumo</span> Seu caminho aparecerá aqui.</div>
 </main>
 
-<div id="settings" class="modal">
+<!-- Modal de Licença -->
+<div id="license" class="modal">
   <div class="panel">
-    <h3>⚙️ Configurações</h3>
-
-    <div class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
-      <label style="min-width:180px">Provedor de IA</label>
-      <select id="provSel" style="flex:1">
-        <option value="gemini">Google AI Studio (Gemini)</option>
-        <option value="hf">Hugging Face</option>
-      </select>
+    <h3>🔐 Licença</h3>
+    <div style="display:flex;gap:10px;align-items:center;margin:8px 0">
+      <label style="min-width:160px">Chave</label><input id="licenseKey" placeholder="cole aqui..." style="flex:1">
     </div>
-
-    <div id="row_gemini" class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
-      <label style="min-width:180px">Gemini API Key</label><input id="geminiKey" placeholder="AIza..." style="flex:1">
-    </div>
-    <div id="row_gemini_model" class="row" style="display:flex;gap:10px;align-items:center;margin:8px 0">
-      <label style="min-width:180px">Gemini Modelo</label><input id="geminiModel" value="gemini-1.5-pro" style="flex:1">
-    </div>
-
-    <div id="row_hf" class="row" style="display:none;gap:10px;align-items:center;margin:8px 0">
-      <label style="min-width:180px">HF Token</label><input id="hfToken" placeholder="hf_xxx" style="flex:1">
-    </div>
-    <div id="row_hf_model" class="row" style="display:none;gap:10px;align-items:center;margin:8px 0">
-      <label style="min-width:180px">HF Modelo</label><input id="hfModel" value="mistralai/Mixtral-8x7B-Instruct-v0.1" style="flex:1">
-    </div>
-
-    <div style="display:flex;gap:10px;justify-content:flex-end"><button id="s_cancel" class="btn">Fechar</button><button id="s_ok" class="btn primary">Salvar</button></div>
-    <div class="mini" style="margin-top:6px">Chaves salvas localmente.</div>
+    <div style="display:flex;gap:10px;justify-content:flex-end"><button id="lic_cancel" class="btn">Fechar</button><button id="lic_ok" class="btn primary">Salvar</button></div>
+    <div class="mini" style="margin-top:6px">Armazenada localmente e utilizada apenas neste dispositivo.</div>
   </div>
 </div>
 

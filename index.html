@@ -3,68 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>HistorIA (Web)</title>
+<title>HistorIA — v1.9.6</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/icon-192.png">
 <meta name="theme-color" content="#0e0f13">
 <style>
-:root{--bg:#0e0f13;--card:#181b26;--ink:#e9ecf1;--muted:#aab1bd;--primary:#7a5cff;--primary2:#79e2ff;--hl:#ffd95a;--line:#242635;--chip:#1b2133;--chip2:#2a2f44}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto}
-header{padding:10px 14px;border-bottom:1px solid var(--line);background:rgba(0,0,0,.35);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:7}
+:root{--bg:#0e0f13;--card:#181b26;--ink:#e9ecf1;--muted:#aab1bd;--line:#242635;--chip:#1b2133;--chip2:#2a2f44;--primary:#7a5cff;--primary2:#79e2ff;--hl:#ffd95a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto}
+header{position:sticky;top:0;z-index:7;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);background:rgba(0,0,0,.35)}
 .ver{padding:2px 8px;border:1px solid var(--chip2);border-radius:999px;background:#1b1f2f;color:#aab1bd;font-size:12px}
-.btn{border:1px solid var(--chip2);border-radius:12px;background:var(--chip);color:var(--ink);padding:10px 12px;cursor:pointer}
-.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#081018;border:none}
-main{max-width:980px;margin:12px auto;padding:0 10px 120px}
+main{max-width:980px;margin:12px auto;padding:0 12px 120px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .center{padding:14px}.hidden{display:none!important}
-.hrow{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.menu{display:grid;gap:10px;margin-top:10px}
-.item{padding:12px;border:1px solid var(--chip2);border-radius:14px;background:#151a25}
-.item .title{font-weight:700}.row-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-.grid{display:grid;gap:10px}.cols-2{grid-template-columns:1fr 1fr}@media(max-width:760px){.cols-2{grid-template-columns:1fr}}
-label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:#111522;color:var(--ink);border:1px solid var(--chip2);border-radius:10px;padding:10px}
-.story{padding:0 14px 10px;line-height:1.64;min-height:220px}
-.story .sent{padding:2px 4px;border-radius:4px}.speaking{background:rgba(255,217,90,.25);outline:1px dashed var(--hl)}
-.choices{display:grid;grid-template-columns:1fr;gap:10px;padding:10px 14px;align-items:start}
-.choice{display:flex;gap:10px;align-items:flex-start; border:1px solid var(--chip2);background:#171b28;border-radius:12px;padding:10px}
-.choice .ico{font-size:22px; line-height:1; margin-top:3px}
-.choice .label{font-weight:700;margin-bottom:4px}
-.choice .btns{display:flex;gap:10px;flex-wrap:wrap}
-.choice .btn{padding:10px 12px}
-.nav{display:flex;gap:10px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
-.nav button{flex:1;border:none;border-radius:12px;padding:12px 14px;background:var(--chip2);color:#dfe6ef;font-weight:700}
-.nav .primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#081018}
+.btn{border:1px solid var(--chip2);border-radius:12px;background:var(--chip);color:var(--ink);padding:10px 12px;cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));color:#081018;border:none}
 .audioDock{position:sticky;top:48px;z-index:6;background:rgba(13,16,23,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
 .audioBar{display:flex;gap:10px;align-items:center;padding:8px 12px;flex-wrap:wrap}
 .group{display:flex;gap:8px;align-items:center;background:#121727;border:1px solid var(--chip2);border-radius:10px;padding:6px 8px}
 .group .pill{padding:6px 8px;border-radius:999px;background:#1a2133;border:1px solid var(--chip2);cursor:pointer}
-.sliderWrap{position:relative}
-.sliderWrap input[type=range]{display:none; width:180px}
-.sliderWrap.open input[type=range]{display:block}
-.mini{color:#aab1bd;font-size:12px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:20}
-.modal.on{display:flex}.panel{background:var(--card);border:1px solid var(--chip2);border-radius:14px;max-width:860px;width:92%;padding:16px}
-.stage{padding:12px 14px 8px} .stage h2{margin:0 0 6px;font-size:18px} .stage .cap{font-weight:600;color:#b6c1d1}
-.log{margin-top:14px;padding:10px 14px;border-top:1px dashed var(--line);color:#bfc7d6;font-size:13px} .badge{padding:3px 8px;border-radius:999px;background:#23273a;border:1px solid var(--chip2);margin-right:6px}
+.sliderWrap input[type=range]{display:none;width:180px}.sliderWrap.open input[type=range]{display:block}
+.story{padding:0 14px 10px;line-height:1.64;min-height:200px}
+.story .sent{padding:2px 4px;border-radius:4px}.speaking{background:rgba(255,217,90,.25);outline:1px dashed var(--hl)}
+.choice{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--chip2);background:#171b28;border-radius:12px;padding:10px;margin:10px 14px}
+.choice .ico{font-size:22px;line-height:1;margin-top:2px}
+.choice .label{font-weight:700;margin-bottom:4px}
 .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#10131c;color:var(--ink);border:1px solid var(--chip2);border-radius:10px;padding:8px 12px;font-size:12px;z-index:50;opacity:.95}
 </style>
 </head>
 <body>
-<header>
-  <h1>🧠 HistorIA <span class="ver">v1.9.4-gemini</span></h1>
-  <div><button id="btnSettings" class="btn" title="Licença & GitHub">🔐 Licença</button><button id="btnHome" class="btn hidden" title="Menu">🏠</button></div>
-</header>
+<header><h1>🧠 HistorIA <span class="ver">v1.9.6</span></h1>
+<div><button id="btnSettings" class="btn">🔐 Licença</button><button id="btnHome" class="btn hidden">🏠</button></div></header>
+
 <main>
 <section id="screenMenu" class="card center">
-  <div class="hrow"><h2>Seus roteiros</h2><button id="btnCreate" class="btn primary" title="Novo roteiro">➕ Criar novo roteiro</button></div>
-  <div id="listStories" class="menu"></div>
-  <div class="mini" style="margin-top:8px">Geração por capítulo • Próximo em segundo plano • Retoma do ponto onde parou.</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+    <h2>Seus roteiros</h2>
+    <button id="btnCreate" class="btn primary">➕ Criar novo roteiro</button>
+  </div>
+  <div id="listStories" style="display:grid;gap:10px;margin-top:10px"></div>
 </section>
 
 <section id="screenCreator" class="card hidden">
   <div class="center">
     <h2>Novo roteiro</h2>
-    <div class="grid cols-2">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div><label>Título</label><input id="f_title" placeholder="Ex.: Marés de Agosto"></div>
       <div><label>Gênero</label>
         <select id="f_genre">
@@ -80,84 +62,61 @@ label{font-size:13px;color:#cfd5e2} input,select,textarea{width:100%;background:
           <option value="historico">Histórico</option>
           <option value="policial">Policial</option>
           <option value="romance">Romance</option>
-          <option value="thriller">Suspense / Thriller</option>
+          <option value="thriller">Suspense/Thriller</option>
           <option value="comedia_romantica">Comédia Romântica</option>
           <option value="drama_juridico">Drama Jurídico</option>
         </select>
       </div>
-    </div>
-    <div class="grid cols-2" style="margin-top:8px">
       <div><label>Núcleos (máx. 6)</label><input id="f_nucleos" type="number" min="1" max="6" value="6"></div>
       <div><label>Capítulos (máx. 10)</label><input id="f_capitulos" type="number" min="3" max="10" value="10"></div>
+      <div style="grid-column:1 / -1"><label>Enredo breve</label><textarea id="f_brief" placeholder="Palavras‑chave/hipótese."></textarea></div>
+      <div style="grid-column:1 / -1"><label>Núcleos (vírgulas)</label><input id="f_nuclei" placeholder="Portugal, Brasil (antes), travessia, família real, romance com nativa, traição na corte"></div>
+      <div style="grid-column:1 / -1;display:flex;gap:8px;align-items:center"><input id="f_firstperson" type="checkbox"><label for="f_firstperson">Narrar em primeira pessoa (pode terminar antes)</label></div>
     </div>
-    <div class="grid cols-2" style="margin-top:8px">
-      <div><label>Enredo breve</label><textarea id="f_brief" placeholder="Palavras‑chave/hipótese inicial."></textarea></div>
-      <div><label>Núcleos (vírgulas)</label><input id="f_nuclei" placeholder="Ex.: Portugal, travessia, família real, ..."></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+      <button id="btnCancel" class="btn">Cancelar</button>
+      <button id="btnGenerate" class="btn primary">⚙️ Gerar 1º capítulo</button>
     </div>
-    <div style="margin-top:8px;display:flex;align-items:center;gap:10px">
-      <input id="f_firstperson" type="checkbox"><label for="f_firstperson">Narrar em primeira pessoa (pode encerrar antes)</label>
-    </div>
-    <div class="mini" id="genHint" style="margin-top:6px">Meta: ~15 min por capítulo (decisões 50% e 90%, com 3 opções A/B/C).</div>
-    <div style="display:flex;gap:10px;margin-top:12px;justify-content:flex-end">
-      <button id="btnCancel" class="btn">Cancelar</button><button id="btnGenerate" class="btn primary">⚙️ Gerar primeiro capítulo</button>
-    </div>
-    <div id="genStatus" class="mini" style="margin-top:8px"></div>
   </div>
 </section>
 
 <section id="screenReader" class="card hidden">
   <div class="audioDock">
     <div class="audioBar">
-      <div class="group"><span class="mini">Voz</span>
+      <div class="group"><span style="color:#aab1bd;font-size:12px">Voz</span>
         <select id="selVoice"><option value="auto">Automática</option><option value="masc">Masculina</option><option value="fem">Feminina</option></select>
-        <button id="btnSpeak" class="btn">🔈 Narrar</button><button id="btnStop" class="btn">⏹️</button><span id="speechStatus" class="mini">Pronto</span>
+        <button id="btnSpeak" class="btn">🔈 Narrar</button><button id="btnStop" class="btn">⏹️</button><span id="speechStatus" style="color:#aab1bd;font-size:12px">Pronto</span>
       </div>
-      <div class="group sliderWrap" id="wrapRate">
-        <div class="pill" id="pillRate">Velocidade <span id="rateVal">1.00x</span></div>
-        <input id="rateSlider" type="range" min="0.6" max="1.6" step="0.02" value="1.00">
-      </div>
-      <div class="group sliderWrap" id="wrapVol">
-        <div class="pill" id="pillVol">Volume <span id="volVal">90%</span></div>
-        <input id="volSlider" type="range" min="0" max="1" step="0.02" value="0.90">
-        <button id="muteBtn" class="btn">🔇</button>
-      </div>
+      <div class="group sliderWrap" id="wrapRate"><div class="pill" id="pillRate">Velocidade <span id="rateVal">1.00x</span></div><input id="rateSlider" type="range" min="0.6" max="1.6" step="0.02" value="1.00"></div>
+      <div class="group sliderWrap" id="wrapVol"><div class="pill" id="pillVol">Volume <span id="volVal">90%</span></div><input id="volSlider" type="range" min="0" max="1" step="0.02" value="0.90"><button id="muteBtn" class="btn">🔇</button></div>
     </div>
   </div>
-
-  <div class="stage"><div class="cap" id="capitulo">Capítulo 1</div><h2 id="titulo">Título</h2></div>
+  <div style="padding:12px 14px 0"><div id="capitulo" style="color:#b6c1d1;font-weight:600">Capítulo 1</div><h2 id="titulo">Título</h2></div>
   <div id="narrativa" class="story"></div>
-
-  <div class="choices" id="choices"></div>
-
-  <div class="nav"><button id="btnBack">⟵ Voltar</button><button id="btnNext" class="primary">Avançar ⟶</button></div>
+  <button id="btnNewOptions" class="btn" style="margin:6px 14px">🔄 Novas opções</button>
+  <div id="choices"></div>
+  <div style="display:flex;gap:10px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap">
+    <button id="btnBack">⟵ Voltar</button><button id="btnNext" class="btn primary">Avançar ⟶</button>
+  </div>
 </section>
 
-<div class="log" id="log"><span class="badge">Resumo</span> Seu caminho aparecerá aqui.</div>
-</main>
-
-<div id="license" class="modal">
-  <div class="panel">
-    <h3>🔐 Licença & GitHub</h3>
-    <div class="grid cols-2">
-      <div style="display:flex;gap:10px;align-items:center;margin:8px 0">
-        <label style="min-width:120px">Chave IA</label><input id="licenseKey" placeholder="cole aqui..." style="flex:1">
-      </div>
-      <div style="display:flex;gap:10px;align-items:center;margin:8px 0">
-        <label style="min-width:120px">Modelo</label><input id="modelKey" placeholder="gemini-1.5-pro" style="flex:1">
-      </div>
-    </div>
-    <h4 class="mini" style="margin:12px 0 6px">Sync opcional no GitHub (histórias acessíveis sem API)</h4>
-    <div class="grid cols-2">
-      <div><label>Dono/Org</label><input id="gh_owner" placeholder="seu-usuario"></div>
-      <div><label>Repositório</label><input id="gh_repo" placeholder="historias"></div>
-      <div><label>Branch</label><input id="gh_branch" placeholder="main" value="main"></div>
-      <div><label>Token</label><input id="gh_token" placeholder="token contents:write"></div>
-    </div>
-    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px"><button id="lic_cancel" class="btn">Fechar</button><button id="lic_ok" class="btn primary">Salvar</button></div>
+<div id="license" class="card center hidden"><h3>🔐 Licença & GitHub</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div><label>Chave IA</label><input id="licenseKey" placeholder="cole aqui..."></div>
+    <div><label>Modelo</label><input id="modelKey" placeholder="gemini-1.5-pro" value="gemini-1.5-pro"></div>
+    <div><label>Dono/Org</label><input id="gh_owner" placeholder="seu-usuario"></div>
+    <div><label>Repositório</label><input id="gh_repo" placeholder="historias"></div>
+    <div><label>Branch</label><input id="gh_branch" value="main"></div>
+    <div><label>Token GitHub</label><input id="gh_token" placeholder="token contents:write"></div>
+  </div>
+  <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+    <button id="lic_cancel" class="btn">Fechar</button><button id="lic_ok" class="btn primary">Salvar</button>
   </div>
 </div>
 
-<script src="webapp.v1.9.4.js"></script>
+<div class="toast hidden" id="toast"></div>
+</main>
+
+<script src="webapp.v1.9.6.js"></script>
 <script>if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));}</script>
-</body>
-</html>
+</body></html>

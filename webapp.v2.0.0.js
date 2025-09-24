@@ -14,6 +14,48 @@ function save(){localStorage.setItem('historia.stories',JSON.stringify(state.sto
 function onReady(f){if(document.readyState!=='loading')f();else document.addEventListener('DOMContentLoaded',f)}
 onReady(async()=>{state.stories=await window.HistorIA_loadStories();wire();list();if(!localStorage.getItem('hx_license_key'))$('#license').classList.remove('hidden')});
 
+function bindLicense() {
+  const modal = document.getElementById('license');
+  const btnSettings = document.getElementById('btnSettings');
+  const btnSave = document.getElementById('lic_ok');
+  const btnClose = document.getElementById('lic_cancel');
+
+  // garante que não há handlers duplicados
+  btnSave.onclick = null; btnClose.onclick = null; btnSettings.onclick = null;
+
+  btnSettings.onclick = () => modal.classList.toggle('hidden');
+
+  btnClose.onclick = (e) => {
+    e.preventDefault(); e.stopPropagation();
+    modal.classList.add('hidden');
+  };
+
+  btnSave.onclick = (e) => {
+    e.preventDefault(); e.stopPropagation();
+    const key   = document.getElementById('licenseKey').value.trim();
+    const model = document.getElementById('modelKey').value.trim();
+    const ghOwn = document.getElementById('gh_owner').value.trim();
+    const ghRep = document.getElementById('gh_repo').value.trim();
+    const ghBr  = document.getElementById('gh_branch').value.trim();
+    const ghTok = document.getElementById('gh_token').value.trim();
+
+    localStorage.setItem('hx_license_key', key);
+    localStorage.setItem('hx_model_key',   model || 'gemini-1.5-pro');
+    localStorage.setItem('hx_gh_owner',    ghOwn);
+    localStorage.setItem('hx_gh_repo',     ghRep);
+    localStorage.setItem('hx_gh_branch',   ghBr || 'main');
+    localStorage.setItem('hx_gh_token',    ghTok);
+
+    modal.classList.add('hidden');
+    alert('Licença salva com sucesso.');
+  };
+
+  // Fechar ao pressionar ESC
+  document.addEventListener('keydown', (ev) => {
+    if (!modal.classList.contains('hidden') && ev.key === 'Escape') modal.classList.add('hidden');
+  });
+}
+
 function wire(){
   $('#btnSettings').onclick=()=>$('#license').classList.toggle('hidden');
   $('#lic_cancel').onclick=()=>$('#license').classList.add('hidden');
@@ -38,6 +80,7 @@ function wire(){
     state.stories.push(st); save(); open(st.id,true);
   };
   $('#btnBack').onclick=()=>{if(state.chapterIdx>0){state.chapterIdx--; renderFromStore()}};
+  bindLicense();
 }
 
 function list(){

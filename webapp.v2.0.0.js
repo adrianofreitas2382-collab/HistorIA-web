@@ -57,9 +57,6 @@ function bindLicense() {
 }
 
 function wire(){
-  $('#btnSettings').onclick=()=>$('#license').classList.toggle('hidden');
-  $('#lic_cancel').onclick=()=>$('#license').classList.add('hidden');
-  $('#lic_ok').onclick=()=>{localStorage.setItem('hx_license_key',$('#licenseKey').value.trim());localStorage.setItem('hx_model_key',$('#modelKey').value.trim());localStorage.setItem('hx_gh_owner',$('#gh_owner').value.trim());localStorage.setItem('hx_gh_repo',$('#gh_repo').value.trim());localStorage.setItem('hx_gh_branch',$('#gh_branch').value.trim());localStorage.setItem('hx_gh_token',$('#gh_token').value.trim());$('#license').classList.add('hidden')};
   $('#btnCreate').onclick=()=>{$('#screenMenu').classList.add('hidden');$('#screenCreator').classList.remove('hidden');$('#btnHome').classList.remove('hidden')};
   $('#btnCancel').onclick=()=>{$('#screenCreator').classList.add('hidden');$('#screenMenu').classList.remove('hidden');$('#btnHome').classList.add('hidden')};
   $('#btnHome').onclick=()=>{$('#screenReader').classList.add('hidden');$('#screenCreator').classList.add('hidden');$('#screenMenu').classList.remove('hidden');$('#btnHome').classList.add('hidden');list()};

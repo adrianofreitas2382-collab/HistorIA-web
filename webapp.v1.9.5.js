@@ -1,1 +1,0 @@
-console.log('HistorIA v1.9.5 bootstrap loaded');

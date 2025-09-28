@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HistorIA v2.0.3</title>
+<title>HistorIA v2.0.5</title>
 <link rel="manifest" href="manifest.webmanifest"/>
 <link rel="icon" href="assets/icon-192.png"/>
 <style>
@@ -12,6 +12,7 @@
 header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #1c2230;position:sticky;top:0;background:rgba(14,15,19,.9);backdrop-filter:saturate(1.2) blur(6px);z-index:10}
 .badge{background:#1c2230;border:1px solid #283146;color:#b7c2d6;border-radius:12px;padding:4px 10px;font-size:12px}
 .btn{background:var(--btn);color:#dfe7ff;border:1px solid #2b3447;border-radius:10px;padding:8px 12px;cursor:pointer}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
 .btn:hover{filter:brightness(1.05)}
 .container{max-width:980px;margin:20px auto;padding:0 16px}
 .hidden{display:none}
@@ -42,7 +43,7 @@ h2{font-size:18px;color:#cbd5f4;margin:.2em 0}
   <div style="display:flex;gap:10px;align-items:center">
     <img src="assets/icon-192.png" width="24" height="24" alt="icon"/>
     <strong>HistorIA</strong>
-    <span class="badge">v2.0.3</span>
+    <span class="badge">v2.0.5</span>
   </div>
   <div class="controls">
     <button id="btnHome" class="btn hidden">🏠 Menu</button>
@@ -152,7 +153,7 @@ h2{font-size:18px;color:#cbd5f4;margin:.2em 0}
 </div>
 
 <div id="license" class="modal hidden">
-  <div class="box">
+  <div class="box" id="licenseBox">
     <h3>Licença / Provedor</h3>
     <p class="small">Use Google AI Studio (Gemini). Sua chave fica somente neste dispositivo.</p>
     <label>License Key</label><input id="licenseKey" placeholder="cole sua chave aqui"/>
@@ -168,11 +169,11 @@ h2{font-size:18px;color:#cbd5f4;margin:.2em 0}
     </details>
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
       <button id="lic_cancel" class="btn">Fechar</button>
-      <button id="lic_ok" class="btn">Salvar</button>
+      <button id="lic_ok" class="btn" disabled>Salvar</button>
     </div>
   </div>
 </div>
 
-<script src="webapp.v2.0.3.js"></script>
+<script src="webapp.v2.0.5.js"></script>
 </body>
 </html>

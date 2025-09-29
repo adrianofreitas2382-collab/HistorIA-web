@@ -1,1 +1,107 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>HistorIA v2.0.8</title><link rel="manifest" href="manifest.webmanifest"/><link rel="icon" href="assets/icon-192.png"/><style>:root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--btn:#1f2531}*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:#e9edf5;font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #1c2230;position:sticky;top:0;background:rgba(14,15,19,.9);backdrop-filter:saturate(1.2) blur(6px);z-index:10}.badge{background:#1c2230;border:1px solid #283146;color:#b7c2d6;border-radius:12px;padding:4px 10px;font-size:12px}.btn{background:var(--btn);color:#dfe7ff;border:1px solid #2b3447;border-radius:10px;padding:8px 12px;cursor:pointer}.btn[disabled]{opacity:.5;cursor:not-allowed}.btn:hover{filter:brightness(1.05)}.container{max-width:980px;margin:20px auto;padding:0 16px}.hidden{display:none}.grid{display:grid;gap:12px}.card{background:var(--card);border:1px solid #1c2230;border-radius:14px;padding:16px}.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.pill{background:#1f2531;border:1px solid #2a3346;border-radius:20px;padding:6px 10px;cursor:pointer}.wrapSlider{position:relative}.wrapSlider.open .slider{display:flex}.slider{display:none;position:absolute;top:40px;left:0;gap:8px;background:#0e0f13;border:1px solid #2b3549;padding:10px;border-radius:10px;align-items:center}.slider input[type=range]{width:180px}.story p{margin:12px 0}.choice{display:flex;gap:12px;align-items:flex-start;background:#101521;border:1px solid #232f46;padding:12px;border-radius:12px;margin:12px 0}.choice .ico{font-size:20px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:30}.modal .box{background:#0f1421;border:1px solid #22304c;border-radius:14px;min-width:320px;max-width:640px;padding:16px}label{font-size:13px;color:#aab1bd;display:block;margin:10px 0 4px}input,select,textarea{width:100%;background:#111724;border:1px solid #27314a;border-radius:10px;color:#e9edf5;padding:10px}textarea{min-height:120px;resize:vertical}h2{font-size:18px;color:#cbd5f4;margin:.2em 0}.small{color:#aab1bd;font-size:12px}.row{display:flex;gap:10px;flex-wrap:wrap}.col{flex:1 1 260px}footer{padding:20px 16px;color:#aab1bd;text-align:center}</style></head><body><header class="container"><div style="display:flex;gap:10px;align-items:center"><img src="assets/icon-192.png" width="24" height="24" alt="icon"/><strong>HistorIA</strong><span class="badge">v2.0.8</span></div><div class="controls"><button id="btnHome" class="btn hidden">🏠 Menu</button><button id="btnTutorial" class="btn">📘 Tutorial</button></div></header><main class="container"><section id="screenMenu" class="grid"><div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Seus roteiros</h2><button id="btnCreate" class="btn">➕ Criar novo roteiro</button></div><div id="listStories" class="grid"></div></div></section><section id="screenCreator" class="grid hidden"><div class="card grid"><h2>Novo roteiro</h2><div class="row"><div class="col"><label>Título</label><input id="f_title" placeholder="Ex.: Próxima Vítima"/></div><div class="col"><label>Gênero</label><select id="f_genre"><option>Drama</option><option>Comédia</option><option>Terror</option><option>Faroeste</option><option>+18</option><option>Infantil</option><option>Ficção científica</option><option>Aventura</option><option>Suspense/Thriller</option><option>Romance</option><option>Mistério/Investigação</option></select></div><div class="col"><label>Nº de capítulos (1–10)</label><input id="f_capitulos" type="number" min="1" max="10" value="10"/></div></div><label>Núcleos (separados por vírgula)</label><input id="f_nuclei" placeholder="Ex.: família, juventude, política, imprensa"/><label>Enredo breve (palavras‑chave)</label><textarea id="f_brief" placeholder="Breve ideia que deve guiar ~50% do rumo."></textarea><label><input type="checkbox" id="f_firstperson"/> Narrar em primeira pessoa (pode haver fim precoce)</label><div style="display:flex;gap:10px;justify-content:flex-end"><button id="btnCancel" class="btn">Cancelar</button><button id="btnGenerate" class="btn">Gerar e começar</button></div></div></section><section id="screenReader" class="grid hidden"><div class="card"><div class="controls" style="justify-content:space-between;flex-wrap:wrap;margin-bottom:8px"><div class="controls"><button id="btnBack" class="btn">⬅️ Voltar</button><button id="btnNext" class="btn">Avançar ➡️</button></div><div class="controls"><button id="btnSpeak" class="btn">🔊 Narrar</button><button id="btnStop" class="btn">⏹️ Parar</button><div class="wrapSlider" id="wrapRate"><div id="pillRate" class="pill">Velocidade <span id="rateVal">1.00x</span></div><div class="slider"><input id="rateSlider" type="range" min="0.7" max="2" step="0.05" value="1"/></div></div><div class="wrapSlider" id="wrapVol"><div id="pillVol" class="pill">Volume <span id="volVal">90%</span></div><div class="slider"><input id="volSlider" type="range" min="0" max="1" step="0.01" value="0.9"/><button id="muteBtn" class="btn">🔇</button></div></div></div></div><div class="small" id="capitulo">Capítulo</div><h2 id="titulo">—</h2><div id="narrativa" class="story"></div><div style="display:flex;justify-content:flex-start;margin-top:10px"><button id="btnNewOptions" class="btn">🔄 Novas opções</button></div><div id="choices"></div></div></section></main><div id="terms" class="modal"><div class="box"><h3>Termos e Condições</h3><p class="small">Ao usar o HistorIA, você concorda em não criar conteúdos que promovam atividades ilegais, violência real, discurso de ódio, ou violações de direitos autorais. O conteúdo gerado é de responsabilidade de quem cria e compartilha. O uso indevido pode acarretar consequências legais e violações de ética. Este software é fornecido “no estado em que se encontra”, sem garantias de qualquer tipo.</p><label><input type="checkbox" id="terms_accept"/> Li e concordo com os Termos e Condições</label><div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px"><button id="terms_ok" class="btn" disabled>Continuar</button></div></div></div><div id="tutorial" class="modal hidden"><div class="box"><h3>Como usar</h3><ul class="small"><li><b>Título/Gênero/Capítulos:</b> defina o básico do projeto.</li><li><b>Núcleos:</b> nomes separados por vírgula; usados em toda a temporada.</li><li><b>Enredo breve:</b> guia ≈50% do rumo; IA expande o restante.</li><li><b>Primeira pessoa:</b> o leitor vira o protagonista; pode haver fim precoce.</li><li><b>Leitura:</b> cada capítulo ~15 min, com decisões em 50% e 90%.</li><li><b>Opções (A/B/C):</b> clique para seguir; use <kbd>🔄 Novas opções</kbd> para refinar.</li><li><b>Narração:</b> sliders de velocidade/volume atuam em tempo real; <kbd>🔇</kbd> silencia.</li><li><b>Persistência:</b> IndexedDB+localStorage; você pode continuar depois.</li><li><b>Licença:</b> já embutida nesta versão.</li></ul><div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px"><button id="tutorial_close" class="btn">Fechar</button></div></div></div><footer class="container small">© HistorIA — gerador de novelas-RPG interativas</footer><script src="webapp.v2.0.8.js"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HistorIA v2.0.9</title>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="icon" href="assets/icon-192.png"/>
+<style>:root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--btn:#1f2531}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #1c2230;position:sticky;top:0;background:rgba(14,15,19,.9);backdrop-filter:saturate(1.2) blur(6px);z-index:10}
+.badge{background:#1c2230;border:1px solid #283146;color:#b7c2d6;border-radius:12px;padding:4px 10px;font-size:12px}
+.btn{background:var(--btn);color:#dfe7ff;border:1px solid #2b3447;border-radius:10px;padding:8px 12px;cursor:pointer;user-select:none}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn:hover{filter:brightness(1.05)}
+.container{max-width:980px;margin:20px auto;padding:0 16px}
+.hidden{display:none !important}
+.grid{display:grid;gap:12px}
+.card{background:var(--card);border:1px solid #1c2230;border-radius:14px;padding:16px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{background:#1f2531;border:1px solid #2a3346;border-radius:20px;padding:6px 10px;cursor:pointer}
+.wrapSlider{position:relative}
+.wrapSlider.open .slider{display:flex}
+.slider{display:none;position:absolute;top:40px;left:0;gap:8px;background:#0e0f13;border:1px solid #2b3549;padding:10px;border-radius:10px;align-items:center}
+.slider input[type=range]{width:180px}
+.story p{margin:12px 0}
+.choice{display:flex;gap:12px;align-items:flex-start;background:#101521;border:1px solid #232f46;padding:12px;border-radius:12px;margin:12px 0}
+.choice .ico{font-size:20px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:30}
+.modal .box{background:#0f1421;border:1px solid #22304c;border-radius:14px;min-width:320px;max-width:640px;padding:16px}
+label{font-size:13px;color:#aab1bd;display:block;margin:10px 0 4px}
+input,select,textarea{width:100%;background:#111724;border:1px solid #27314a;border-radius:10px;color:#e9edf5;padding:10px}
+textarea{min-height:120px;resize:vertical}
+h2{font-size:18px;color:#cbd5f4;margin:.2em 0}
+.small{color:#aab1bd;font-size:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.col{flex:1 1 260px}
+footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
+</head>
+<body>
+<header class="container">
+  <div style="display:flex;gap:10px;align-items:center">
+    <img src="assets/icon-192.png" width="24" height="24" alt="icon"/>
+    <strong>HistorIA</strong>
+    <span class="badge">v2.0.9</span>
+  </div>
+  <div class="controls">
+    <button id="btnHome" class="btn hidden">🏠 Menu</button>
+    <button id="btnTutorial" class="btn">📘 Tutorial</button>
+  </div>
+</header>
+
+<main class="container">
+  <section id="screenMenu" class="grid">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Seus roteiros</h2>
+        <button id="btnCreate" class="btn">➕ Criar novo roteiro</button>
+      </div>
+      <div id="listStories" class="grid"></div>
+    </div>
+  </section>
+</main>
+
+<!-- Terms modal: opens first -->
+<div id="terms" class="modal hidden">
+  <div class="box">
+    <h3>Termos e Condições</h3>
+    <p class="small">Ao usar o HistorIA, você concorda em não criar conteúdos que promovam atividades ilegais,
+    violência real, discurso de ódio, ou violações de direitos autorais. O conteúdo gerado é de responsabilidade
+    de quem cria e compartilha. O uso indevido pode acarretar consequências legais e violações de ética.
+    Este software é fornecido “no estado em que se encontra”, sem garantias de qualquer tipo.</p>
+    <label><input type="checkbox" id="terms_accept"/> Li e concordo com os Termos e Condições</label>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+      <button id="terms_ok" class="btn" disabled>Continuar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tutorial modal (manual only) -->
+<div id="tutorial" class="modal hidden">
+  <div class="box">
+    <h3>Como usar</h3>
+    <ul class="small">
+      <li><b>Título/Gênero/Capítulos:</b> defina o básico do projeto.</li>
+      <li><b>Núcleos:</b> nomes separados por vírgula; usados em toda a temporada.</li>
+      <li><b>Enredo breve:</b> guia ≈50% do rumo; IA expande o restante.</li>
+      <li><b>Primeira pessoa:</b> o leitor vira o protagonista; pode haver fim precoce.</li>
+      <li><b>Leitura:</b> cada capítulo ~15 min, com decisões em 50% e 90%.</li>
+      <li><b>Opções (A/B/C):</b> clique para seguir; use <kbd>🔄 Novas opções</kbd> para refinar.</li>
+      <li><b>Narração:</b> sliders de velocidade/volume atuam em tempo real; <kbd>🔇</kbd> silencia.</li>
+      <li><b>Persistência:</b> IndexedDB+localStorage; você pode continuar depois.</li>
+      <li><b>Licença:</b> já embutida nesta versão.</li>
+    </ul>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+      <button id="tutorial_close" class="btn">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<footer class="container small">© HistorIA — gerador de novelas-RPG interativas</footer>
+
+<script src="webapp.v2.0.9.js"></script>
+</body>
+</html>

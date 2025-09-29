@@ -1,43 +1,34 @@
 <!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HistorIA v2.0.10</title>
-<link rel="manifest" href="manifest.webmanifest"/>
-<link rel="icon" href="assets/icon-192.png"/>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HistorIA v2.0.11</title>
+<link rel="manifest" href="manifest.webmanifest"/><link rel="icon" href="assets/icon-192.png"/>
 <style>:root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--btn:#1f2531}
-*{box-sizing:border-box}
-html,body{height:100%}
+*{box-sizing:border-box}html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
 header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #1c2230;position:sticky;top:0;background:rgba(14,15,19,.9);backdrop-filter:saturate(1.2) blur(6px);z-index:10}
 .badge{background:#1c2230;border:1px solid #283146;color:#b7c2d6;border-radius:12px;padding:4px 10px;font-size:12px}
 .btn{background:var(--btn);color:#dfe7ff;border:1px solid #2b3447;border-radius:10px;padding:8px 12px;cursor:pointer;user-select:none}
-.btn[disabled]{opacity:.5;cursor:not-allowed}
-.btn:hover{filter:brightness(1.05)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}.btn:hover{filter:brightness(1.05)}
 .container{max-width:980px;margin:20px auto;padding:0 16px}
-.hidden{display:none !important}
-.grid{display:grid;gap:12px}
+.hidden{display:none !important}.grid{display:grid;gap:12px}
 .card{background:var(--card);border:1px solid #1c2230;border-radius:14px;padding:16px}
 .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:30}
-.modal .box{background:#0f1421;border:1px solid #22304c;border-radius:14px;min-width:320px;max-width:640px;padding:16px}
 label{font-size:13px;color:#aab1bd;display:block;margin:10px 0 4px}
 input,select,textarea{width:100%;background:#111724;border:1px solid #27314a;border-radius:10px;color:#e9edf5;padding:10px}
 textarea{min-height:120px;resize:vertical}
-h2{font-size:18px;color:#cbd5f4;margin:.2em 0}
-.small{color:#aab1bd;font-size:12px}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.col{flex:1 1 260px}
+h2{font-size:18px;color:#cbd5f4;margin:.2em 0}.small{color:#aab1bd;font-size:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.col{flex:1 1 260px}
 .storyItem{display:flex;justify-content:space-between;align-items:center;background:#101521;border:1px solid #232f46;padding:12px;border-radius:12px}
+.readText{white-space:pre-wrap}
+.pill{padding:6px 10px;background:#0f1627;border:1px solid #22304c;border-radius:999px;color:#c8d3f0;font-size:13px}
+.option{display:flex;align-items:center;gap:8px;background:#101726;border:1px solid #26324b;border-radius:12px;padding:10px;justify-content:space-between}
 footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
-</head>
-<body>
+</head><body>
 <header class="container">
   <div style="display:flex;gap:10px;align-items:center">
-    <img src="assets/icon-192.png" width="24" height="24" alt="icon"/>
-    <strong>HistorIA</strong>
-    <span class="badge">v2.0.10</span>
+    <img src="assets/icon-192.png" width="24" height="24" alt="icon"/><strong>HistorIA</strong>
+    <span class="badge">v2.0.11</span>
   </div>
   <div class="controls">
     <button id="btnHome" class="btn hidden">🏠 Menu</button>
@@ -62,48 +53,40 @@ footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
     <div class="card grid">
       <h2>Novo roteiro</h2>
       <div class="row">
-        <div class="col">
-          <label>Título</label>
-          <input id="f_title" placeholder="Ex.: Próxima Vítima"/>
-        </div>
-        <div class="col">
-          <label>Gênero</label>
-          <select id="f_genre">
-            <option>Drama</option><option>Comédia</option><option>Terror</option><option>Faroeste</option><option>+18</option><option>Infantil</option><option>Ficção científica</option><option>Aventura</option><option>Suspense/Thriller</option><option>Romance</option><option>Mistério/Investigação</option>
-          </select>
-        </div>
-        <div class="col">
-          <label>Nº de capítulos (1–10)</label>
-          <input id="f_capitulos" type="number" min="1" max="10" value="10"/>
-        </div>
+        <div class="col"><label>Título</label><input id="f_title" placeholder="Ex.: Próxima Vítima"/></div>
+        <div class="col"><label>Gênero</label><select id="f_genre">
+          <option>Drama</option><option>Comédia</option><option>Terror</option><option>Faroeste</option><option>+18</option><option>Infantil</option><option>Ficção científica</option><option>Aventura</option><option>Suspense/Thriller</option><option>Romance</option><option>Mistério/Investigação</option>
+        </select></div>
+        <div class="col"><label>Nº de capítulos (1–10)</label><input id="f_capitulos" type="number" min="1" max="10" value="10"/></div>
       </div>
-      <label>Núcleos (separados por vírgula)</label>
-      <input id="f_nuclei" placeholder="Ex.: família, juventude, política, imprensa"/>
-      <label>Enredo breve (palavras‑chave)</label>
-      <textarea id="f_brief" placeholder="Breve ideia que deve guiar ~50% do rumo."></textarea>
+      <label>Núcleos (separados por vírgula)</label><input id="f_nuclei" placeholder="Ex.: família, juventude, política, imprensa"/>
+      <label>Enredo breve (palavras‑chave)</label><textarea id="f_brief" placeholder="Breve ideia que deve guiar ~50% do rumo."></textarea>
       <label><input type="checkbox" id="f_firstperson"/> Narrar em primeira pessoa (pode haver fim precoce)</label>
       <div style="display:flex;gap:10px;justify-content:flex-end">
-        <button id="btnCancel" class="btn">Cancelar</button>
-        <button id="btnGenerate" class="btn">Gerar e salvar</button>
+        <button id="btnCancel" class="btn">Cancelar</button><button id="btnGenerate" class="btn">Gerar e salvar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- READER -->
+  <section id="screenReader" class="grid hidden">
+    <div class="card grid">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 id="r_title">Capítulo 1</h2>
+        <div class="controls">
+          <span id="r_badge" class="pill">Capítulo 1</span>
+          <button id="r_next" class="btn hidden">Próximo trecho →</button>
+        </div>
+      </div>
+      <div id="r_body" class="readText"></div>
+      <div id="r_opts" class="grid"></div>
+      <div id="r_actions" class="controls">
+        <button id="r_generate" class="btn">⚙️ Gerar capítulo com IA</button>
+        <button id="r_newopts" class="btn hidden">🔄 Novas opções</button>
       </div>
     </div>
   </section>
 </main>
-
-<!-- Terms -->
-<div id="terms" class="modal hidden">
-  <div class="box">
-    <h3>Termos e Condições</h3>
-    <p class="small">Ao usar o HistorIA, você concorda em não criar conteúdos que promovam atividades ilegais,
-    violência real, discurso de ódio, ou violações de direitos autorais. O conteúdo gerado é de responsabilidade
-    de quem cria e compartilha. O uso indevido pode acarretar consequências legais e violações de ética.
-    Este software é fornecido “no estado em que se encontra”, sem garantias de qualquer tipo.</p>
-    <label><input type="checkbox" id="terms_accept"/> Li e concordo com os Termos e Condições</label>
-    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
-      <button id="terms_ok" class="btn" disabled>Continuar</button>
-    </div>
-  </div>
-</div>
 
 <!-- Tutorial -->
 <div id="tutorial" class="modal hidden">
@@ -116,7 +99,6 @@ footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
       <li><b>Primeira pessoa:</b> o leitor vira o protagonista; pode haver fim precoce.</li>
       <li><b>Leitura:</b> cada capítulo ~15 min, com decisões em 50% e 90%.</li>
       <li><b>Opções (A/B/C):</b> clique para seguir; use <kbd>🔄 Novas opções</kbd> para refinar.</li>
-      <li><b>Narração:</b> sliders de velocidade/volume atuam em tempo real; <kbd>🔇</kbd> silencia.</li>
       <li><b>Persistência:</b> IndexedDB+localStorage; você pode continuar depois.</li>
       <li><b>Licença:</b> já embutida nesta versão.</li>
     </ul>
@@ -127,7 +109,5 @@ footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
 </div>
 
 <footer class="container small">HistorIA - Suas idéias e suas escolhas na sua história!</footer>
-
-<script src="webapp.v2.0.10.js"></script>
-</body>
-</html>
+<script src="webapp.v2.0.11.js"></script>
+</body></html>

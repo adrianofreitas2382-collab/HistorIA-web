@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HistorIA v2.0.9</title>
+<title>HistorIA v2.0.10</title>
 <link rel="manifest" href="manifest.webmanifest"/>
 <link rel="icon" href="assets/icon-192.png"/>
 <style>:root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--btn:#1f2531}
@@ -20,14 +20,6 @@ header{display:flex;gap:12px;align-items:center;justify-content:space-between;pa
 .grid{display:grid;gap:12px}
 .card{background:var(--card);border:1px solid #1c2230;border-radius:14px;padding:16px}
 .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.pill{background:#1f2531;border:1px solid #2a3346;border-radius:20px;padding:6px 10px;cursor:pointer}
-.wrapSlider{position:relative}
-.wrapSlider.open .slider{display:flex}
-.slider{display:none;position:absolute;top:40px;left:0;gap:8px;background:#0e0f13;border:1px solid #2b3549;padding:10px;border-radius:10px;align-items:center}
-.slider input[type=range]{width:180px}
-.story p{margin:12px 0}
-.choice{display:flex;gap:12px;align-items:flex-start;background:#101521;border:1px solid #232f46;padding:12px;border-radius:12px;margin:12px 0}
-.choice .ico{font-size:20px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:30}
 .modal .box{background:#0f1421;border:1px solid #22304c;border-radius:14px;min-width:320px;max-width:640px;padding:16px}
 label{font-size:13px;color:#aab1bd;display:block;margin:10px 0 4px}
@@ -37,6 +29,7 @@ h2{font-size:18px;color:#cbd5f4;margin:.2em 0}
 .small{color:#aab1bd;font-size:12px}
 .row{display:flex;gap:10px;flex-wrap:wrap}
 .col{flex:1 1 260px}
+.storyItem{display:flex;justify-content:space-between;align-items:center;background:#101521;border:1px solid #232f46;padding:12px;border-radius:12px}
 footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
 </head>
 <body>
@@ -44,7 +37,7 @@ footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
   <div style="display:flex;gap:10px;align-items:center">
     <img src="assets/icon-192.png" width="24" height="24" alt="icon"/>
     <strong>HistorIA</strong>
-    <span class="badge">v2.0.9</span>
+    <span class="badge">v2.0.10</span>
   </div>
   <div class="controls">
     <button id="btnHome" class="btn hidden">🏠 Menu</button>
@@ -53,6 +46,7 @@ footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
 </header>
 
 <main class="container">
+  <!-- MENU -->
   <section id="screenMenu" class="grid">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -62,9 +56,41 @@ footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
       <div id="listStories" class="grid"></div>
     </div>
   </section>
+
+  <!-- CREATOR -->
+  <section id="screenCreator" class="grid hidden">
+    <div class="card grid">
+      <h2>Novo roteiro</h2>
+      <div class="row">
+        <div class="col">
+          <label>Título</label>
+          <input id="f_title" placeholder="Ex.: Próxima Vítima"/>
+        </div>
+        <div class="col">
+          <label>Gênero</label>
+          <select id="f_genre">
+            <option>Drama</option><option>Comédia</option><option>Terror</option><option>Faroeste</option><option>+18</option><option>Infantil</option><option>Ficção científica</option><option>Aventura</option><option>Suspense/Thriller</option><option>Romance</option><option>Mistério/Investigação</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Nº de capítulos (1–10)</label>
+          <input id="f_capitulos" type="number" min="1" max="10" value="10"/>
+        </div>
+      </div>
+      <label>Núcleos (separados por vírgula)</label>
+      <input id="f_nuclei" placeholder="Ex.: família, juventude, política, imprensa"/>
+      <label>Enredo breve (palavras‑chave)</label>
+      <textarea id="f_brief" placeholder="Breve ideia que deve guiar ~50% do rumo."></textarea>
+      <label><input type="checkbox" id="f_firstperson"/> Narrar em primeira pessoa (pode haver fim precoce)</label>
+      <div style="display:flex;gap:10px;justify-content:flex-end">
+        <button id="btnCancel" class="btn">Cancelar</button>
+        <button id="btnGenerate" class="btn">Gerar e salvar</button>
+      </div>
+    </div>
+  </section>
 </main>
 
-<!-- Terms modal: opens first -->
+<!-- Terms -->
 <div id="terms" class="modal hidden">
   <div class="box">
     <h3>Termos e Condições</h3>
@@ -79,7 +105,7 @@ footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
   </div>
 </div>
 
-<!-- Tutorial modal (manual only) -->
+<!-- Tutorial -->
 <div id="tutorial" class="modal hidden">
   <div class="box">
     <h3>Como usar</h3>
@@ -100,8 +126,8 @@ footer{padding:20px 16px;color:#aab1bd;text-align:center}</style>
   </div>
 </div>
 
-<footer class="container small">© HistorIA — gerador de novelas-RPG interativas</footer>
+<footer class="container small">HistorIA - Suas idéias e suas escolhas na sua história!</footer>
 
-<script src="webapp.v2.0.9.js"></script>
+<script src="webapp.v2.0.10.js"></script>
 </body>
 </html>

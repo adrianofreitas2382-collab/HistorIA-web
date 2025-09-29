@@ -2,7 +2,6 @@
   "name": "HistorIA",
   "short_name": "HistorIA",
   "start_url": ".",
-  "scope": ".",
   "display": "standalone",
   "background_color": "#0e0f13",
   "theme_color": "#0e0f13",

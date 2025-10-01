@@ -1,9 +1,22 @@
 {
   "name": "HistorIA",
   "short_name": "HistorIA",
-  "start_url": ".",
+  "description": "HistorIA — suas ideias e suas escolhas na sua história",
+  "id": "/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0e0f13",
-  "theme_color": "#0e0f13",
-  "icons": []
+  "theme_color": "#151922",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

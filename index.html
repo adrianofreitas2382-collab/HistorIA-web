@@ -1,144 +1,123 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>HistorIA v2.0.12</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <style>
-    :root{
-      --bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--pri:#5b7cfa;--ok:#57d199;--warn:#ffcc66;--err:#ff7676;--btn:#1f2531
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
-    .wrap{max-width:980px;margin:0 auto;padding:24px}
-    header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-    .badge{background:#182034;border:1px solid #27314a;color:#bcd2ff;padding:4px 10px;border-radius:10px;font-size:12px}
-    h1{font-size:22px;margin:0}
-    .card{background:var(--card);border:1px solid #20283a;border-radius:14px;padding:18px;margin:12px 0}
-    button{background:linear-gradient(90deg,#2b63ff,#60a5ff);border:0;color:white;padding:10px 14px;border-radius:12px;cursor:pointer}
-    button.sec{background:var(--btn)}
-    button:disabled{opacity:.5;cursor:not-allowed}
-    .row{display:flex;gap:12px;flex-wrap:wrap}
-    .field{flex:1;min-width:220px}
-    label{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}
-    input,select,textarea{width:100%;background:#0f1420;border:1px solid #263049;border-radius:12px;color:var(--text);padding:10px 12px;outline:none}
-    textarea{min-height:120px}
-    .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
-    .grid{display:grid;gap:12px}
-    .footer{opacity:.7;text-align:center;margin-top:28px}
-    /* Alinhamento checkbox primeira pessoa */
-    .checkline{display:flex;align-items:center;gap:10px;margin-top:6px}
-    .checkline input[type="checkbox"]{appearance:none;width:18px;height:18px;border:1px solid #3a4765;border-radius:5px;background:#0f1420;display:inline-grid;place-content:center}
-    .checkline input[type="checkbox"]::before{content:"";width:12px;height:12px;transform:scale(0);transition:.12s;background:#60a5ff;border-radius:3px}
-    .checkline input[type="checkbox"]:checked::before{transform:scale(1)}
-    .story-line{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid #20283a;border-radius:12px;background:#11172a}
-    .muted{color:var(--muted);font-size:14px}
-    .vis{display:block}
-    dialog{border:0;border-radius:16px;background:#0f1420;color:var(--text);padding:0;max-width:780px;width:92%}
-    dialog::backdrop{background:rgba(0,0,0,.6)}
-    .dlg-body{padding:18px}
-    .dlg-head{padding:14px 18px;border-bottom:1px solid #1c2436;font-weight:600}
-    .dlg-foot{padding:14px 18px;border-top:1px solid #1c2436;display:flex;justify-content:flex-end;gap:10px}
-    .spinner{width:18px;height:18px;border-radius:50%;border:3px solid #2b63ff;border-top-color:transparent;animation:sp 1s linear infinite}
-    @keyframes sp{to{transform:rotate(360deg)}}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>HistorIA v2.0.13</title>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="icon" href="assets/icon-192.png"/>
+<style>
+:root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--pri:#5b7cfa;--btn:#1f2531}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+header{display:flex;gap:12px;align-items:center;padding:18px 20px;border-bottom:1px solid #1d2230;background:linear-gradient(180deg,#0f1118,#0e0f13)}
+h1{margin:0;font-size:22px;letter-spacing:.3px}
+.badge{background:#111929;border:1px solid #2a2f3e;color:#b9c2d0;font-size:12px;padding:6px 10px;border-radius:12px;cursor:pointer}
+.btn{background:linear-gradient(90deg,#388aff,#6ad4ff);color:#041429;border:0;border-radius:14px;padding:10px 14px;font-weight:600;cursor:pointer}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.container{max-width:960px;margin:18px auto;padding:0 16px}
+.card{background:var(--card);border:1px solid #23293a;border-radius:16px;padding:16px}
+.card h2{margin:0 0 10px 0}
+.ghost{opacity:.75}
+.list{display:flex;flex-direction:column;gap:12px}
+.item{display:flex;justify-content:space-between;align-items:center;background:#131826;border:1px solid #242a3c;border-radius:12px;padding:16px;gap:12px}
+.item .meta{color:var(--muted);font-size:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+footer{margin:46px 0 24px;text-align:center;color:#b7becc}
+/* modal */
+.modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(6,8,12,.6);backdrop-filter:blur(2px);z-index:30}
+.modal.show{display:grid}
+.sheet{background:var(--card);border:1px solid #242a3c;border-radius:16px;max-width:720px;width:calc(100% - 28px);padding:16px}
+.sheet h3{margin:0 0 10px}
+label{display:block;margin-top:10px;margin-bottom:4px;font-size:14px;color:#b9c2d0}
+input[type=text], input[type=number], textarea, select{width:100%;background:#0f1422;border:1px solid #283247;color:#e9edf5;border-radius:10px;padding:10px}
+textarea{min-height:80px;resize:vertical}
+.switch{display:flex;align-items:center;gap:8px;margin-top:8px}
+.controls{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,#0f1118,#0e0f13);border-bottom:1px solid #1d2230;padding:8px 16px;display:flex;gap:12px;align-items:center}
+.controls .slider{display:none;align-items:center;gap:6px}
+.controls .slider.show{display:flex}
+.controls input[type=range]{width:120px}
+.kbd{background:#0f1422;border:1px solid #2c3446;color:#9db1d8;padding:2px 6px;border-radius:6px;font-size:12px}
+.option{border:1px solid #2b3346;border-radius:12px;padding:12px;background:#0f1422}
+.option h4{margin:0 0 6px}
+.icon{font-size:18px;margin-right:6px}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>HistorIA</h1>
-      <span class="badge">v2.0.12</span>
-      <a id="btnTutorial" class="badge" href="#" style="text-decoration:none">📘 Tutorial</a>
-    </header>
+<header>
+  <img src="assets/icon-192.png" width="26" height="26" alt="logo"/>
+  <h1>HistorIA</h1>
+  <span class="badge">v2.0.13</span>
+  <button id="btnTutorial" class="badge">📘 Tutorial</button>
+</header>
 
-    <section class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <h2 style="margin:0">Seus roteiros</h2>
-        <button id="btnNovo">➕ Criar novo roteiro</button>
-      </div>
-      <div id="lista" class="grid"></div>
-    </section>
+<div class="controls">
+  <span class="kbd">Voz</span>
+  <select id="voiceSel"><option>Automática</option><option>Masculina</option><option>Feminina</option></select>
+  <button id="btnNarrar" class="badge">▶️ Narrar</button>
+  <button id="btnParar" class="badge">⏹ Parar</button>
+  <div class="slider" id="sldVel"><span>Vel.</span><input id="velocidade" type="range" min="0.7" max="2" step="0.05" value="1"><span id="velTxt" class="kbd">1.00x</span></div>
+  <div class="slider" id="sldVol"><span>Vol.</span><input id="volume" type="range" min="0" max="1" step="0.05" value="0.9"><span id="volTxt" class="kbd">90%</span></div>
+</div>
 
-    <p class="footer">HistorIA - Suas idéias e suas escolhas na sua história!</p>
+<div class="container">
+  <div class="card">
+    <h2>Seus roteiros</h2>
+    <button id="btnNovo" class="btn">＋ Criar novo roteiro</button>
+    <div id="lista" class="list" style="margin-top:12px"></div>
   </div>
+  <footer>HistorIA - Suas idéias e suas escolhas na sua história!</footer>
+</div>
 
-  <!-- Criador -->
-  <dialog id="dlgNovo">
-    <div class="dlg-head">Novo roteiro</div>
-    <div class="dlg-body">
-      <div class="row">
-        <div class="field">
-          <label>Título</label>
-          <input id="fTitulo" placeholder="Ex.: Aposta"/>
-        </div>
-        <div class="field">
-          <label>Gênero</label>
-          <select id="fGenero">
-            <option>Comédia</option><option>Terror</option><option>Faroeste</option>
-            <option>Infantil</option><option>Ficção</option><option>Aventura</option>
-            <option>Romance</option><option>Suspense/Thriller</option><option>Drama</option>
-            <option>+18</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Capítulos (até 10)</label>
-          <input id="fCaps" type="number" min="1" max="10" value="10"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label>Núcleos (separados por vírgula)</label>
-          <input id="fNucleos" placeholder="ex.: família, trabalho, romance"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label>Enredo breve (guia ≈50%)</label>
-          <textarea id="fEnredo" placeholder="Escreva a ideia geral. A IA completará coerentemente."></textarea>
-        </div>
-      </div>
-      <div class="checkline">
-        <input id="fPrimeira" type="checkbox"/>
-        <label for="fPrimeira" style="margin:0">Narrar em primeira pessoa</label>
-      </div>
-      <p class="muted">Ao salvar, a IA criará a bíblia e iniciará o Capítulo 1 (~15min). As decisões surgem em ~50% e 90% com 3 opções cada.</p>
-    </div>
-    <div class="dlg-foot">
-      <button class="sec" id="fecharNovo">Cancelar</button>
-      <button id="salvarNovo">Salvar & gerar</button>
-    </div>
-  </dialog>
+<!-- Modal de criação -->
+<div id="dlgNovo" class="modal"><div class="sheet">
+  <h3>Novo roteiro</h3>
+  <label>Título</label><input id="fldTitulo" type="text" placeholder="Ex.: Próxima Vítima">
+  <label>Gênero</label>
+  <select id="fldGenero">
+    <option>Suspense/Thriller</option><option>Comédia</option><option>Terror</option>
+    <option>Faroeste</option><option>Infantil</option><option>Ficção científica</option>
+    <option>Aventura</option><option>Romance</option><option>Drama</option>
+    <option>Policial</option><option>Fantasia</option><option>+18</option>
+  </select>
+  <label>Núcleos (separe por vírgulas)</label>
+  <input id="fldNucleos" type="text" placeholder="Corte, Travessia, Família, Romance, ...">
+  <label>Capítulos (1-10)</label><input id="fldCaps" type="number" min="1" max="10" value="10">
+  <label>Enredo breve (guia de ~50%)</label><textarea id="fldEnredo" placeholder="Breve ideia..."></textarea>
+  <div class="switch"><input id="chk1p" type="checkbox"><span>Narrar em primeira pessoa</span></div>
+  <div class="row" style="margin-top:10px">
+    <button id="okNovo" class="btn">Salvar e gerar</button>
+    <button id="fecharNovo" class="badge">Fechar</button>
+  </div>
+</div></div>
 
-  <!-- Leitor -->
-  <dialog id="dlgLeitor">
-    <div class="dlg-head" id="lh"></div>
-    <div class="dlg-body">
-      <div id="ltxt" class="grid"></div>
-      <div id="lopts" class="grid"></div>
-    </div>
-    <div class="dlg-foot">
-      <div id="ldown" class="muted" style="margin-right:auto;display:flex;align-items:center;gap:8px"></div>
-      <button class="sec" id="lFechar">Fechar</button>
-    </div>
-  </dialog>
+<!-- Modal leitor -->
+<div id="dlgLeitor" class="modal"><div class="sheet" style="max-width:900px">
+  <h3 id="capTitulo">Capítulo</h3>
+  <div id="capTexto" class="ghost" style="white-space:pre-wrap"></div>
+  <div id="ponto50" style="margin-top:12px"></div>
+  <div id="ponto90" style="margin-top:12px"></div>
+  <div class="row" style="margin-top:12px">
+    <button id="btnVoltar" class="badge">← Voltar</button>
+    <button id="btnAvancar" class="btn">Avançar →</button>
+  </div>
+</div></div>
 
-  <!-- Tutorial -->
-  <dialog id="dlgTut">
-    <div class="dlg-head">Como usar</div>
-    <div class="dlg-body">
-      <ul>
-        <li><b>Título/Gênero/Capítulos</b>: defina o básico do projeto.</li>
-        <li><b>Núcleos</b>: nomes por vírgula; usados ao longo da temporada.</li>
-        <li><b>Enredo breve</b>: guia ≈50% do rumo; IA expande o restante.</li>
-        <li><b>Primeira pessoa</b>: o leitor vira protagonista; pode ter fim precoce.</li>
-        <li><b>Leitura</b>: ~15min/cap, decisões em 50% e 90% (3 opções).</li>
-        <li><b>Novas opções</b>: regenere escolhas coerentes para refinar.</li>
-      </ul>
-    </div>
-    <div class="dlg-foot"><button id="fecharTut">Fechar</button></div>
-  </dialog>
+<!-- Tutorial -->
+<div id="dlgTut" class="modal"><div class="sheet">
+  <h3>Como usar</h3>
+  <ul>
+    <li><b>Título/Gênero/Capítulos</b>: defina o básico do projeto.</li>
+    <li><b>Núcleos</b>: nomes separados por vírgula; usados em toda a temporada.</li>
+    <li><b>Enredo breve</b>: guia ≈50% do rumo; IA expande o restante.</li>
+    <li><b>Primeira pessoa</b>: o leitor vira o protagonista; pode haver fim precoce.</li>
+    <li><b>Leitura</b>: cada capítulo ~15 min, com decisões em 50% e 90%.</li>
+    <li><b>Opções (A/B/C)</b>: clique para seguir; use 🔄 Novas opções para refinar.</li>
+    <li><b>Narração</b>: sliders de velocidade/volume atuam em tempo real; 🔇 silencia.</li>
+    <li><b>Persistência</b>: histórias ficam salvas no aparelho.</li>
+  </ul>
+  <div class="row"><button id="fecharTut" class="btn">Fechar</button></div>
+</div></div>
 
-<script src="webapp.v2.0.12.js"></script>
+<script src="webapp.v2.0.13.js" defer></script>
 </body>
 </html>

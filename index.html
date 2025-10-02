@@ -1,125 +1,89 @@
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>HistorIA v2.0.15</title>
-<link rel="manifest" href="manifest.webmanifest"/>
-<style>
-:root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--pri:#5b7cfa;--good:#3fcf8e;--bad:#e57474;--chip:#1f2531;}
-*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
-header{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #1b2230}
-.logo{display:flex;align-items:center;gap:10px;font-size:28px;font-weight:800}
-.logo img{width:28px;height:28px;border-radius:6px}
-.tag{background:var(--chip);padding:6px 10px;border-radius:10px;color:#cbd3df;font-weight:700}
-header .sp{flex:1}
-.btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(45deg,#3777ff,#61a0ff);color:#fff;border:none;border-radius:12px;padding:10px 14px;cursor:pointer}
-.btn.secondary{background:#242b39;color:#cbd3df}
-main{max-width:980px;margin:20px auto;padding:0 16px}
-.card{background:var(--card);border:1px solid #1b2230;border-radius:16px;padding:18px}
-.h1{font-size:28px;font-weight:800;margin:8px 0 16px}
-.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.kv{display:flex;flex-direction:column;gap:8px;margin:12px 0}
-.input,select,textarea{background:#111622;border:1px solid #252e3f;border-radius:12px;color:var(--text);padding:10px 12px;width:100%}
-small{color:var(--muted)}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.chip{background:var(--chip);color:#cbd3df;border-radius:999px;padding:6px 10px;font-size:12px}
-.list{display:flex;flex-direction:column;gap:14px}
-.proj{background:#121722;border:1px solid #212a3c;border-radius:14px;padding:14px}
-.proj .title{font-size:20px;font-weight:800}
-.proj .meta{color:#b7bfcc}
-.badge{display:inline-block;padding:6px 10px;border-radius:10px;font-weight:700}
-.badge.ok{background:#103a28;color:#aef0d0}
-.badge.err{background:#3a1b1b;color:#ffd5d5}
-footer{padding:30px 16px;text-align:center;color:#b8c0cc}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center}
-.modal.show{display:flex}
-.modal .box{background:var(--card);border:1px solid #1b2230;border-radius:14px;padding:16px;max-width:640px;width:92%}
-.modal .box h3{margin:0 0 8px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media (max-width:720px){.grid{grid-template-columns:1fr}}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>HistorIA v2.0.15</title>
+  <link rel="manifest" href="manifest.webmanifest"/>
+  <style>
+    :root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--pri:#5b7cfa;--btn:#1f2531;}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    .wrap{max-width:980px;margin:0 auto;padding:20px}
+    header{display:flex;align-items:center;gap:12px;padding:12px 0}
+    .brand{font-weight:800;font-size:28px;display:flex;align-items:center;gap:10px}
+    .chip{background:linear-gradient(90deg,#2b6ef2,#5b7cfa);padding:6px 10px;border-radius:12px;color:#fff;font-weight:700}
+    .btn{appearance:none;border:0;border-radius:10px;padding:12px 16px;background:linear-gradient(90deg,#2b6ef2,#5b7cfa);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+    .btn.secondary{background:var(--btn);color:var(--text)}
+    .card{background:var(--card);border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.4);padding:18px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    h1{margin:0 0 6px 0}
+    footer{opacity:.7;text-align:center;margin:36px 0 20px}
+    /* ===== MODAL FIX ===== */
+    body.modal-open{overflow:hidden;touch-action:none;overscroll-behavior:contain}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center;z-index:50;overflow:hidden}
+    .modal[hidden]{display:none}
+    .modal__sheet{background:var(--card);width:min(720px,92vw);max-height:min(88vh,720px);overflow:auto;-webkit-overflow-scrolling:touch;border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+    .modal__head{position:sticky;top:0;background:var(--card);padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .modal__body{padding:18px;display:grid;gap:14px}
+    .modal__footer{position:sticky;bottom:0;background:var(--card);padding:12px 16px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:flex-end;gap:10px}
+    .field label{display:block;margin-bottom:6px;color:var(--muted);font-weight:600}
+    .field input,.field select,.field textarea{width:100%;padding:12px 12px;border-radius:10px;background:#10131a;border:1px solid #22283a;color:var(--text)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:640px){.grid2{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-<header>
-  <div class="logo"><img src="assets/icon-192.png" alt=""/>HistorIA</div>
-  <span class="tag">v2.0.15</span>
-  <span class="sp"></span>
-  <button id="btnTutorial" class="btn secondary">📘 Tutorial</button>
-  <button id="btnIA" class="btn secondary">⚙️ IA</button>
-</header>
+  <div class="wrap">
+    <header class="row">
+      <div class="brand">🧠 HistorIA</div>
+      <div class="chip">v2.0.15</div>
+      <button id="btnTutorial" class="btn secondary" style="margin-left:auto">📘 Tutorial</button>
+    </header>
 
-<main>
-  <section class="card">
-    <div class="h1">Seus roteiros</div>
-    <button id="btnNew" class="btn">＋ Criar novo roteiro</button>
-    <div id="list" class="list" style="margin-top:16px"></div>
-  </section>
-</main>
+    <section class="card">
+      <div class="row" style="justify-content:space-between;align-items:center;">
+        <h1>Seus roteiros</h1>
+        <button id="btnAbrirCriar" class="btn">＋ Criar novo roteiro</button>
+      </div>
+      <div id="lista" style="margin-top:12px;display:grid;gap:14px"></div>
+    </section>
 
-<footer>HistorIA - Suas idéias e suas escolhas na sua história!</footer>
+    <footer>HistorIA - Suas ideias e suas escolhas na sua história!</footer>
+  </div>
 
-<!-- Modal Novo Projeto -->
-<div id="mdlNew" class="modal">
- <div class="box">
-  <h3>Novo roteiro</h3>
-  <div class="grid">
-    <div class="kv"><label>Título</label><input id="inTitle" class="input" placeholder="Ex.: A próxima vítima"/></div>
-    <div class="kv"><label>Gênero</label>
-      <select id="inGenre">
-        <option>Suspense/Thriller</option><option>Mistério/Investigação</option><option>Comédia</option><option>Terror</option><option>Aventura</option><option>Romance</option><option>Drama</option><option>Faroeste</option><option>Infantil</option><option>Ficção científica</option><option>Fantasia</option><option>+18 (adulto)</option>
-      </select>
+  <!-- Modal Criar -->
+  <div id="modal-criar" class="modal" hidden>
+    <div class="modal__sheet">
+      <div class="modal__head"><strong>Criar novo roteiro</strong></div>
+      <div class="modal__body">
+        <div class="field"><label>Título</label><input id="fTitulo" placeholder="Ex.: Aposta"/></div>
+        <div class="field"><label>Gênero</label>
+          <select id="fGenero">
+            <option>Suspense/Thriller</option><option>Comédia</option><option>Terror</option>
+            <option>Ficção</option><option>Aventura</option><option>Romance</option>
+          </select>
+        </div>
+        <div class="field"><label>Núcleos (separados por vírgula)</label>
+          <input id="fNucleos" placeholder="família, trabalho, investigação"/>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Capítulos</label><input id="fCapitulos" type="number" min="1" max="10" value="10"/></div>
+          <div class="field"><label>Primeira pessoa?</label>
+            <select id="fPrimeira"><option>Não</option><option>Sim</option></select>
+          </div>
+        </div>
+        <div class="field"><label>Enredo breve (guia ~50%)</label>
+          <textarea id="fEnredo" rows="4" placeholder="Uma ideia curta que guiará o rumo..."></textarea>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button id="btnCancelar" class="btn secondary">Cancelar</button>
+        <button id="btnCriar" class="btn">Criar</button>
+      </div>
     </div>
-    <div class="kv"><label>Núcleos (separados por vírgula)</label><input id="inNucleos" class="input" placeholder="Ex.: polícia, família, imprensa"/></div>
-    <div class="kv"><label>Capítulos</label><input id="inChapters" class="input" type="number" min="1" max="10" value="10"/></div>
-    <div class="kv"><label>Primeira pessoa</label><select id="inFirst"><option value="no">Não</option><option value="yes">Sim</option></select></div>
-    <div class="kv"><label>Enredo breve (guia ~50%)</label><textarea id="inPitch" rows="4" placeholder="Breve enredo com palavras‑chave..."></textarea></div>
   </div>
-  <div class="row" style="justify-content:flex-end;margin-top:12px">
-    <button id="btCancelNew" class="btn secondary">Cancelar</button>
-    <button id="btCreate" class="btn">Criar</button>
-  </div>
- </div>
-</div>
 
-<!-- Modal IA -->
-<div id="mdlIA" class="modal">
- <div class="box">
-  <h3>Configurar IA</h3>
-  <div class="grid">
-    <div class="kv"><label>Provider</label><input id="inProv" class="input" value="Google AI Studio (Gemini)" disabled/></div>
-    <div class="kv"><label>Modelo</label><input id="inModel" class="input" value="gemini-1.5-pro"/></div>
-    <div class="kv" style="grid-column:1/-1"><label>License Key</label><input id="inKey" class="input" placeholder="API Key"/></div>
-  </div>
-  <small>Sua chave fica apenas neste dispositivo (localStorage).</small>
-  <div class="row" style="justify-content:flex-end;margin-top:12px">
-    <button id="btCloseIA" class="btn secondary">Fechar</button>
-    <button id="btSaveIA" class="btn">Salvar</button>
-  </div>
- </div>
-</div>
-
-<!-- Modal Tutorial -->
-<div id="mdlTut" class="modal">
- <div class="box">
-  <h3>Como usar</h3>
-  <ul>
-    <li>Crie um roteiro com título, gênero, núcleos e enredo breve (≈50% do rumo).</li>
-    <li>Capítulo ~15 min, com decisões em 50% e 90% (A/B/C).</li>
-    <li>Status aparece no cartão: Gerando/Pronto/Falhou.</li>
-    <li>Config. IA em ⚙️ (chave do Gemini, modelo).</li>
-    <li>Seus roteiros ficam salvos (IndexedDB + localStorage).</li>
-  </ul>
-  <div class="row" style="justify-content:flex-end;margin-top:12px">
-    <button id="btCloseTut" class="btn">Fechar</button>
-  </div>
- </div>
-</div>
-
-<script src="webapp.v2.0.15.js"></script>
-<script>
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
-</script>
+  <script src="webapp.v2.0.15.js"></script>
 </body>
 </html>

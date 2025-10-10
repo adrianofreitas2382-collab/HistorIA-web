@@ -1,4 +1,3 @@
-const DEFAULT_GEMINI_KEY='AIzaSyBrcPS9mYDqnEeseSeb5huoM0kZ0JcszTM';
 // HistorIA v1.9.3 — continuidade, bíblia de história, anti-clichê
 (function(){
   const $=(id)=>document.getElementById(id);
@@ -322,71 +321,4 @@ ${text}`;
     toast('HistorIA v1.9.3 pronto');
   }
   if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
-})();
-
-
-
-// === Additions v2.1.0-restaurada ===
-(function(){
-  const $=s=>document.querySelector(s);
-
-  // Tutorial modal (reuses existing modal system if present; else alert)
-  const tutBtn = document.getElementById('tutorialBtn');
-  if(tutBtn){
-    tutBtn.onclick = () => {
-      if(window.showModal){
-        showModal('Como usar', '<ul><li>Defina título, gênero, núcleos e enredo breve (~50%).</li><li>A IA completará o capítulo com decisões em 50% e 90%.</li><li>Use Regerar em caso de erro.</li><li>Suas histórias ficam salvas e podem ser retomadas.</li></ul>', 'Fechar', ()=>{});
-      } else {
-        alert('Como usar:\n- Defina título, gênero, núcleos e enredo breve (~50%).\n- A IA completará cada capítulo (decisões em 50% e 90%).\n- Use Regerar em caso de erro.\n- Suas histórias ficam salvas.');
-      }
-    };
-  }
-
-  // IA Settings (only toggles an inline prompt to change key/model)
-  const iaBtn = document.getElementById('iaBtn');
-  if(iaBtn){
-    iaBtn.onclick = ()=>{
-      const input = prompt('Chave/License atual para Gemini:', localStorage.getItem('ia.key') || DEFAULT_GEMINI_KEY);
-      if(input){
-        localStorage.setItem('ia.key', input.trim());
-        alert('Licença atualizada.');
-      }
-    };
-  }
-
-  // Terms & Conditions gate
-  const terms = document.getElementById('termsModal');
-  if(terms){
-    const accepted = localStorage.getItem('terms.accepted') === '1';
-    if(!accepted){
-      terms.classList.add('open');
-      document.body.style.overflow='hidden';
-      const btnA = document.getElementById('termsAccept');
-      const btnD = document.getElementById('termsDecline');
-      if(btnA) btnA.onclick = ()=>{
-        localStorage.setItem('terms.accepted','1');
-        terms.classList.remove('open');
-        document.body.style.overflow='';
-      };
-      if(btnD) btnD.onclick = ()=>{
-        alert('Você precisa aceitar para usar o aplicativo.');
-      };
-    }
-  }
-})();
-
-// Fallback: se botão "Criar novo roteiro" existir mas não abrir modal, forçamos um hover/abrir padrão
-(function(){
-  const btn = document.getElementById('newStory') || document.querySelector('[data-action="create-story"]') || document.querySelector('#newBtn');
-  if(btn && !btn._boundRestore){
-    btn._boundRestore = true;
-    btn.addEventListener('click', ()=>{
-      const modal = document.getElementById('modal') || document.querySelector('.modal');
-      if(modal && !modal.classList.contains('open')){
-        modal.classList.add('open'); document.body.style.overflow='hidden';
-      }
-      const first = modal && modal.querySelector('input,textarea,select,button');
-      if(first) first.focus();
-    }, {capture:true});
-  }
 })();

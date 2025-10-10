@@ -1,162 +1,112 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HistorIA v2.0.0</title>
-<link rel="manifest" href="manifest.webmanifest"/>
-<link rel="icon" href="assets/icon-192.png"/>
-<style>:root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--pri:#5b7cfa;--btn:#1f2531;}
-*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
-header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #1c2230;position:sticky;top:0;background:rgba(14,15,19,.9);backdrop-filter:saturate(1.2) blur(6px);z-index:10}
-.badge{background:#1c2230;border:1px solid #283146;color:#b7c2d6;border-radius:12px;padding:4px 10px;font-size:12px}
-.btn{background:var(--btn);color:#dfe7ff;border:1px solid #2b3447;border-radius:10px;padding:8px 12px;cursor:pointer}
-.btn:hover{filter:brightness(1.05)}
-.container{max-width:980px;margin:20px auto;padding:0 16px}
-.hidden{display:none}
-.grid{display:grid;gap:12px}
-.card{background:var(--card);border:1px solid #1c2230;border-radius:14px;padding:16px}
-.center{display:block}
-.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.pill{background:#1f2531;border:1px solid #2a3346;border-radius:20px;padding:6px 10px;cursor:pointer}
-.wrapSlider{position:relative}
-.wrapSlider.open .slider{display:flex}
-.slider{display:none;position:absolute;top:40px;left:0;gap:8px;background:#0e0f13;border:1px solid #2b3549;padding:10px;border-radius:10px;align-items:center}
-.slider input[type=range]{width:180px}
-.story p{margin:12px 0}
-.choice{display:flex;gap:12px;align-items:flex-start;background:#101521;border:1px solid #232f46;padding:12px;border-radius:12px;margin:12px 0}
-.choice .ico{font-size:20px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:20}
-.modal .box{background:#0f1421;border:1px solid #22304c;border-radius:14px;min-width:320px;max-width:520px;padding:16px}
-label{font-size:13px;color:#aab1bd;display:block;margin:10px 0 4px}
-input,select,textarea{width:100%;background:#111724;border:1px solid #27314a;border-radius:10px;color:#e9edf5;padding:10px}
-textarea{min-height:120px;resize:vertical}
-h1,h2,h3{margin:.2em 0}
-h1{font-size:22px}
-h2{font-size:18px;color:#cbd5f4}
-.small{color:var(--muted);font-size:12px}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.col{flex:1 1 260px}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>HistorIA v2.0.16</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    :root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--pri:#5b7cfa;--btn:#1f2531}
+    *{box-sizing:border-box} html,body{height:100%;background:var(--bg);color:var(--text);font:16px/1.55 Inter,Segoe UI,Roboto,Arial,sans-serif;margin:0}
+    header{display:flex;align-items:center;gap:.75rem;padding:14px 18px;border-bottom:1px solid #1e2330;position:sticky;top:0;background:#0e0f13;z-index:5}
+    .logo{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:1.35rem}
+    .badge{background:#1f2531;border:1px solid #2a3142;padding:6px 10px;border-radius:10px;font-weight:700;color:#cbd3e1;cursor:pointer}
+    main{max-width:980px;margin:24px auto;padding:0 16px}
+    .card{background:var(--card);border:1px solid #1e2330;border-radius:14px;padding:18px}
+    .title{font-size:1.8rem;font-weight:800}
+    .btn{background:linear-gradient(to bottom,#4f82ff,#3668ff);border:0;color:#fff;padding:12px 16px;border-radius:12px;font-weight:800;cursor:pointer}
+    .btn.secondary{background:#1f2531;color:#e9edf5;border:1px solid #2a3142}
+    .btn.danger{background:#c0392b}
+    .muted{color:var(--muted)}
+    footer{text-align:center;padding:28px 12px;color:#cbd3e1;opacity:.85}
+    .list{display:flex;flex-direction:column;gap:16px}
+    .story{background:rgba(255,255,255,.02);border:1px solid #1e2330;border-radius:12px;padding:16px}
+    .story h3{margin:.1rem 0 .35rem 0}
+    .status{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:.85rem;border:1px solid #2a3142;background:#1a2030;gap:6px;align-items:center}
+    .status.ok{border-color:#316b3d;background:#122619;color:#b7ebc0}
+    .status.err{border-color:#5d1f1f;background:#221114;color:#ffb3b3}
+    .status.warn{border-color:#5c4517;background:#261a05;color:#ffd39b}
+    .row{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;justify-content:space-between}
+
+    .modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.6);z-index:20}
+    .modal.open{display:grid}
+    .sheet{width:min(720px,96vw);max-height:90vh;overflow:auto;background:#151922;border:1px solid #1e2330;border-radius:18px;padding:16px}
+    .sheet h2{margin:.25rem 0 .5rem 0}
+    .field{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+    .field input,.field textarea,.select{width:100%;background:#10131b;color:#e9edf5;border:1px solid #22293a;border-radius:12px;padding:12px}
+    .select{appearance:none}
+    .sheet .actions{display:flex;gap:10px;justify-content:flex-end;position:sticky;bottom:-12px;padding-top:12px;background:linear-gradient(180deg,transparent,rgba(14,15,19,.85) 40%,#151922 70%)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .toolbar{display:flex;align-items:center;gap:.5rem;margin:.5rem 0 1rem 0}
+    .pill{padding:6px 10px;border-radius:999px;border:1px solid #2a3142;background:#111623}
+    .controls{display:flex;gap:.75rem;align-items:center}
+    .range{accent-color:#5b7cfa}
+  </style>
 </head>
 <body>
-<header class="container">
-  <div style="display:flex;gap:10px;align-items:center">
-    <img src="assets/icon-192.png" width="24" height="24" alt="icon"/>
-    <strong>HistorIA</strong>
-    <span class="badge">v2.0.0</span>
-  </div>
-  <div class="controls">
-    <button id="btnHome" class="btn hidden">🏠 Menu</button>
-    <button id="btnSettings" class="btn">🔐 Licença</button>
-  </div>
-</header>
-
-<main class="container">
-  <section id="screenMenu" class="grid">
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <h2>Seus roteiros</h2>
-        <button id="btnCreate" class="btn">➕ Criar novo roteiro</button>
+  <header>
+    <div class="logo">🧠 HistorIA</div>
+    <div class="badge">v2.0.16</div>
+    <button id="btnTutorial" class="badge">📘 Tutorial</button>
+    <button id="btnIA" class="badge">⚙️ IA</button>
+  </header>
+  <main>
+    <div class="toolbar">
+      <div class="pill">Voz
+        <select id="voice" class="select"><option>Automática</option><option>Daniel</option><option>Maria</option></select>
       </div>
-      <div id="listStories" class="grid"></div>
+      <div class="controls">
+        <label>Velocidade <input id="rate" class="range" type="range" min="0.6" max="1.8" step="0.1" value="1"></label>
+        <label>Volume <input id="vol" class="range" type="range" min="0" max="1" step="0.05" value="0.9"></label>
+        <button id="speak" class="btn secondary">Narrar</button>
+        <button id="stop" class="btn secondary">Parar</button>
+      </div>
     </div>
-  </section>
+    <section class="card">
+      <div class="row">
+        <div class="title">Seus roteiros</div>
+        <button id="newStory" class="btn">+ Criar novo roteiro</button>
+      </div>
+      <div id="stories" class="list" style="margin-top:14px"></div>
+    </section>
+  </main>
+  <footer>HistorIA - Suas ideias e suas escolhas na sua história!</footer>
 
-  <section id="screenCreator" class="grid hidden">
-    <div class="card grid">
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true">
       <h2>Novo roteiro</h2>
-      <div class="row">
-        <div class="col">
-          <label>Título</label>
-          <input id="f_title" placeholder="Ex.: Próxima Vítima"/>
-        </div>
-        <div class="col">
-          <label>Gênero</label>
-          <select id="f_genre">
-            <option>Drama</option><option>Comédia</option><option>Terror</option><option>Faroeste</option><option>+18</option>
-            <option>Infantil</option><option>Ficção científica</option><option>Aventura</option><option>Suspense/Thriller</option>
-            <option>Romance</option><option>Mistério/Investigação</option>
-          </select>
-        </div>
-        <div class="col">
-          <label>Nº de capítulos (1–10)</label>
-          <input id="f_capitulos" type="number" min="1" max="10" value="10"/>
-        </div>
+      <div class="field"><label>Título<input id="mTitle" placeholder="Ex.: Aposta"/></label></div>
+      <div class="grid2">
+        <div class="field"><label>Gênero
+          <select id="mGenre" class="select">
+            <option>Comédia</option><option>Terror</option><option>Faroeste</option>
+            <option>Infantil</option><option>Ficção</option><option>Aventura</option>
+            <option>Suspense/Thriller</option><option>Romance</option>
+          </select></label></div>
+        <div class="field"><label>Capítulos<input id="mCaps" type="number" value="10" min="1" max="10"/></label></div>
       </div>
-      <label>Núcleos (separados por vírgula)</label>
-      <input id="f_nuclei" placeholder="Ex.: família, juventude, política, imprensa"/>
-      <label>Enredo breve (palavras-chave)</label>
-      <textarea id="f_brief" placeholder="Um resumo com ganchos e elementos essenciais…"></textarea>
-      <label><input type="checkbox" id="f_firstperson"/> Narrar em primeira pessoa</label>
-      <div style="display:flex;gap:10px;justify-content:flex-end">
-        <button id="btnCancel" class="btn">Cancelar</button>
-        <button id="btnGenerate" class="btn">Gerar e começar</button>
+      <div class="field"><label>Núcleos (separados por vírgula)<input id="mCores" placeholder="ex.: família, investigação, imprensa"/></label></div>
+      <div class="field"><label>Primeira pessoa?
+        <select id="mPOV" class="select"><option>Não</option><option>Sim</option></select></label></div>
+      <div class="field"><label>Enredo breve (guia ~50%)<textarea id="mPitch" rows="4" placeholder="Breve premissa..."></textarea></label></div>
+      <div class="actions">
+        <button id="mClose" class="btn secondary">Fechar</button>
+        <button id="mCreate" class="btn">Criar</button>
       </div>
-    </div>
-  </section>
-
-  <section id="screenReader" class="grid hidden">
-    <div class="card">
-      <div class="controls" style="justify-content:space-between;flex-wrap:wrap;margin-bottom:8px">
-        <div class="controls">
-          <button id="btnBack" class="btn">⬅️ Voltar</button>
-          <button id="btnNext" class="btn">Avançar ➡️</button>
-        </div>
-        <div class="controls">
-          <button id="btnSpeak" class="btn">🔊 Narrar</button>
-          <button id="btnStop" class="btn">⏹️ Parar</button>
-          <div class="wrapSlider" id="wrapRate">
-            <div id="pillRate" class="pill">Velocidade <span id="rateVal">1.00x</span></div>
-            <div class="slider">
-              <input id="rateSlider" type="range" min="0.7" max="2" step="0.05" value="1"/>
-            </div>
-          </div>
-          <div class="wrapSlider" id="wrapVol">
-            <div id="pillVol" class="pill">Volume <span id="volVal">90%</span></div>
-            <div class="slider">
-              <input id="volSlider" type="range" min="0" max="1" step="0.01" value="0.9"/>
-              <button id="muteBtn" class="btn">🔇</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="small" id="capitulo">Capítulo</div>
-      <h2 id="titulo">—</h2>
-      <div id="narrativa" class="story"></div>
-      <div style="display:flex;justify-content:flex-start;margin-top:10px">
-        <button id="btnNewOptions" class="btn">🔄 Novas opções</button>
-      </div>
-      <div id="choices"></div>
-    </div>
-  </section>
-</main>
-
-<div id="license" class="modal hidden">
-  <div class="box">
-    <h3>Licença / Provedor</h3>
-    <p class="small">Use Google AI Studio (Gemini). Sua chave fica somente neste dispositivo.</p>
-    <label>License Key</label>
-    <input id="licenseKey" placeholder="cole sua chave aqui"/>
-    <label>Modelo (ex.: gemini-1.5-pro)</label>
-    <input id="modelKey" value="gemini-1.5-pro"/>
-    <details>
-      <summary>Backup opcional (GitHub)</summary>
-      <div class="row">
-        <div class="col"><label>Owner</label><input id="gh_owner"/></div>
-        <div class="col"><label>Repo</label><input id="gh_repo"/></div>
-        <div class="col"><label>Branch</label><input id="gh_branch" value="main"/></div>
-      </div>
-      <label>Token (contents:write)</label>
-      <input id="gh_token"/>
-    </details>
-    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
-      <button id="lic_cancel" class="btn">Fechar</button>
-      <button id="lic_ok" class="btn">Salvar</button>
     </div>
   </div>
-</div>
 
-<script src="webapp.v2.0.0.js"></script>
+  <div id="reader" class="modal" aria-hidden="true">
+    <div class="sheet">
+      <div class="row" style="justify-content:space-between">
+        <h2 id="rTitle">Capítulo</h2>
+        <button id="rClose" class="btn secondary">Fechar</button>
+      </div>
+      <div id="rBody" class="field"></div>
+      <div class="row" id="choices"></div>
+    </div>
+  </div>
+
+  <script src="webapp.v2.0.16.js"></script>
 </body>
 </html>

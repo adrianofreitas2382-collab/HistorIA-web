@@ -1,10 +1,9 @@
-
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/><title>HistorIA</title>
-<link rel="manifest" href="manifest.webmanifest"/><link rel="stylesheet" href="styles.css"/></head><body>
+<link rel="manifest" href="./manifest.webmanifest"/><link rel="stylesheet" href="./styles.css"/></head><body>
 <div class="app">
   <div class="topbar">
-    <div class="header"><span class="brain"></span><div class="title">HistorIA</div><span class="badge" id="version">v2.1.0</span>
+    <div class="header"><span class="brain"></span><div class="title">HistorIA</div><span class="badge" id="version">v2.1.1</span>
       <button class="btn secondary" id="btnTutorial">📘 Tutorial</button><button class="btn secondary" id="btnIA">⚙️ IA</button>
     </div>
     <div class="row">
@@ -55,5 +54,5 @@
 <div class="row" style="justify-content:flex-end;margin-top:10px"><button class="btn secondary" id="btnIAFechar">Fechar</button><button class="btn" id="btnIASalvar">Salvar</button></div>
 </div></div>
 
-<script src="webapp.js"></script><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}</script>
+<script defer src="./webapp.js?v=2.1.1"></script><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}</script>
 </body></html>

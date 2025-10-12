@@ -1,6 +1,5 @@
-
 :root{--bg:#0e0f13;--card:#151922;--text:#e9edf5;--muted:#aab1bd;--pri:#5b7cfa;--btn:#1f2531;--ok:#2bb673;--warn:#f5a623;--err:#e76f51}
-*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Arial,sans-serif}
 .app{max-width:920px;margin:24px auto;padding:0 16px}.header{display:flex;gap:12px;align-items:center;margin-bottom:12px}
 .badge{background:#1b2130;border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}.title{display:flex;gap:8px;align-items:center;font-weight:800;font-size:28px}
 .brain{width:22px;height:22px;border-radius:50%;background:#ff6aa2;display:inline-block}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}

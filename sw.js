@@ -1,5 +1,6 @@
-const CACHE='historia-ia-shell-v2.1.1';
-const ASSETS=['./','./index.html','./styles.css','./webapp.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png'];
+
+const CACHE='historia-ia-shell-v2.1.3';
+const ASSETS=['./','./index.html','./styles.css','./webapp.v2.1.3.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE).map(x=>caches.delete(x))))) });
 self.addEventListener('fetch',e=>{

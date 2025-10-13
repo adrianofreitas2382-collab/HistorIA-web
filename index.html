@@ -1,58 +1,17 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/><title>HistorIA</title>
-<link rel="manifest" href="./manifest.webmanifest"/><link rel="stylesheet" href="./styles.css"/></head><body>
-<div class="app">
-  <div class="topbar">
-    <div class="header"><span class="brain"></span><div class="title">HistorIA</div><span class="badge" id="version">v2.1.1</span>
-      <button class="btn secondary" id="btnTutorial">📘 Tutorial</button><button class="btn secondary" id="btnIA">⚙️ IA</button>
-    </div>
-    <div class="row">
-      <select class="select" id="selVoice"><option value="auto">Automática</option><option value="male">Masculina</option><option value="female">Feminina</option></select>
-      <button class="btn secondary" id="btnNarrar">▶️ Narrar</button><button class="btn secondary" id="btnParar">⏹️ Parar</button>
-      <div class="slider-wrap" id="wrapVel"><button class="btn secondary" id="btnVel">Velocidade</button><div class="bar"><input type="range" id="rngVel" min="0.6" max="1.8" step="0.1" value="1"/></div></div>
-      <div class="slider-wrap" id="wrapVol"><button class="btn secondary" id="btnVol">Volume</button><div class="bar"><input type="range" id="rngVol" min="0" max="1" step="0.05" value="0.9"/></div></div>
-    </div>
-  </div>
-  <div class="card"><div class="row" style="justify-content:space-between;align-items:center">
-      <h2>Seus roteiros</h2><button class="btn" id="btnNovo">+ Criar novo roteiro</button></div>
-    <div class="list" id="listRoteiros"></div></div>
-  <div class="footer">HistorIA - Suas idéias e suas escolhas na sua história!</div>
-</div>
 
-<div class="modal" id="modalNovo"><div class="panel card" style="width:860px">
-  <h2>Novo roteiro</h2>
-  <div class="grid2">
-   <div><div class="small">Título</div><input class="select" id="inpTitulo"/></div>
-   <div><div class="small">Gênero</div><select class="select" id="selGenero"><option>Suspense/Thriller</option><option>Comédia</option><option>Terror</option><option>Faroeste</option><option>Infantil</option><option>Ficção científica</option><option>Aventura</option><option>Romance</option><option>+18</option></select></div>
-   <div><div class="small">Núcleos (separados por vírgula)</div><input class="select" id="inpNucleos"/></div>
-   <div><div class="small">Capítulos (máx. 10)</div><input class="select number" id="inpCaps" type="number" min="1" max="10" value="10"/></div>
-   <div><div class="small">Primeira pessoa</div><select class="select" id="selP1"><option>Não</option><option>Sim</option></select></div>
-   <div></div>
-   <div style="grid-column:1/-1"><div class="small">Enredo breve (guia ~50%)</div><textarea id="txtEnredo"></textarea></div>
-  </div>
-  <div class="row" style="justify-content:flex-end;margin-top:10px"><button class="btn secondary" id="btnCancelNovo">Cancelar</button><button class="btn" id="btnCriar">Gerar primeiro capítulo</button></div>
-  <div class="small">Meta: ~15 min por capítulo (decisões em 50% e 90%).</div><div class="small" id="novoErr" style="color:#e76f51"></div>
-</div></div>
-
-<div class="modal" id="modalTutorial"><div class="panel card" style="width:760px">
-<h2>Como usar</h2><ul>
-<li><b>Título/Gênero/Capítulos</b>: defina o básico do projeto.</li>
-<li><b>Núcleos</b>: vírgulas; usados durante a temporada.</li>
-<li><b>Enredo breve</b>: guia ≈50%; IA cria o restante.</li>
-<li><b>Primeira pessoa</b>: leitor vira protagonista; pode haver fim precoce.</li>
-<li><b>Leitura</b>: ~15 min; decisões em 50% e 90% (A/B/C + botão “Novas opções”).</li>
-<li><b>Narração</b>: sliders de velocidade/volume atuam em tempo real.</li>
-<li><b>Persistência</b>: IndexedDB+localStorage.</li>
-<li><b>Licença</b>: chave Gemini embutida; pode trocar em ⚙️ IA.</li>
-</ul><div class="row" style="justify-content:flex-end"><button class="btn secondary" id="btnFecharTut">Fechar</button></div>
-</div></div>
-
-<div class="modal" id="modalIA"><div class="panel card" style="width:640px">
-<h2>Provedor de IA</h2><div class="small">Google AI Studio (Gemini). A chave fica no dispositivo.</div>
-<div class="small" style="margin-top:6px">License Key</div><input class="select" id="inpKey" placeholder="AIza..."/>
-<div class="small" style="margin-top:6px">Modelo</div><input class="select" id="inpModel" value="gemini-1.5-pro"/>
-<div class="row" style="justify-content:flex-end;margin-top:10px"><button class="btn secondary" id="btnIAFechar">Fechar</button><button class="btn" id="btnIASalvar">Salvar</button></div>
-</div></div>
-
-<script defer src="./webapp.js?v=2.1.1"></script><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}</script>
-</body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HistorIA v2.1.3</title>
+<link rel="icon" type="image/png" href="./assets/icon-192.png">
+<link rel="apple-touch-icon" href="./assets/icon-192.png">
+<link rel="manifest" href="./manifest.webmanifest">
+</head>
+<body>
+<h1>HistorIA v2.1.3</h1>
+<p>Correções e inclusão de sw.js e 404.html</p>
+<script src="webapp.v2.1.3.js"></script>
+</body>
+</html>
